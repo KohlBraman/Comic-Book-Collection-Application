@@ -25,7 +25,7 @@ public class JdbcComicDao implements ComicDao {
                 "writer_id, artist_id, colorist_id, editor_id, inker_id, letter_id " +
                 "FROM comics WHERE comic_id = ?";
         try {
-            SqlRowSet results = jdbcTemplate.queryForRowSet((sql, comicId));
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, comicId);
             if(results.next()) {
                 comic = mapRowToComic(results);
             }
@@ -55,19 +55,18 @@ public class JdbcComicDao implements ComicDao {
 
     private Comic mapRowToComic(SqlRowSet rs){
         Comic comic = new Comic();
-        comic.setComic_id(rs.getInt("comic_id"));
-        comic.setComic_title(rs.getString("title"));
-        comic.setComic_cover(rs.getString("cover_img"));
-        comic.setComic_volume(rs.getString("volume"));
-        comic.setComic_issueNumber(rs.getInt("issue_number"));
-        comic.setComic_coverDate(rs.getDate("cover_date"));
-        comic.setComic_writerId(rs.getInt("writer_id"));
-        comic.setComic_artistId(rs.getInt("artist_id"));
-        comic.setComic_coloristtId(rs.getInt("colorist_id"));
-        comic.setComic_editorId(rs.getInt("editor_id"));
-        comic.setComic_inkerId(rs.getInt("inker_id"));
-        comic.setComic_lettererId(rs.getInt("letterer_id"));
+        comic.setComicId(rs.getInt("comic_id"));
+        comic.setTitle(rs.getString("title"));
+        comic.setCoverImg(rs.getString("cover_img"));
+        comic.setVolume(rs.getString("volume"));
+        comic.setIssueNumber(rs.getInt("issue_number"));
+        comic.setCoverDate(rs.getDate("cover_date"));
+        comic.setWriterId(rs.getInt("writer_id"));
+        comic.setArtistId(rs.getInt("artist_id"));
+        comic.setColoristId(rs.getInt("colorist_id"));
+        comic.setEditorId(rs.getInt("editor_id"));
+        comic.setInkerId(rs.getInt("inker_id"));
+        comic.setLettererId(rs.getInt("letterer_id"));
         return comic;
     }
-
 }
