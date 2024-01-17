@@ -5,7 +5,8 @@ export function createStore(currentToken, currentUser) {
   let store = _createStore({
     state: {
       token: currentToken || '',
-      user: currentUser || {}
+      user: currentUser || {},
+      comicCover: 'https://img.buzzfeed.com/buzzfeed-static/static/2022-03/30/23/asset/368eba18407b/sub-buzz-527-1648681980-17.jpg',
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {

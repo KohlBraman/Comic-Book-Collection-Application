@@ -1,4 +1,3 @@
-<!-- TopTenList.vue -->
 <template>
     <div class="centered-container" @click="showPowMessage">
       <h2 class="centered-header">Top Comic Book</h2>
@@ -8,26 +7,36 @@
           <div class="comic-info">
             <h3>{{ currentComic.title }}</h3>
             <p>{{ currentComic.description }}</p>
-            <!-- Add more info as needed -->
+            <!-- Add more info here -->
           </div>
         </div>
       </div>
-      <div class="navigation">
-        <button @click="prevItem" :disabled="currentIndex === 0">Previous</button>
-        <span>{{ currentComic.title }}</span>
-        <button @click="nextItem" :disabled="currentIndex === comics.length - 1">Next</button>
-      </div>
-      <div v-if="showPow" class="pow-bubble" :style="{ top: powTop, left: powLeft }"><span class="pow-text">POW!</span></div>
+      <div class="navigation" ref="nextButton">
+      <button @click="prevItem" :disabled="currentIndex === 0">Previous</button>
+      <span>{{ currentComic.title }}</span>
+      <button @click="nextItem" :disabled="currentIndex === comics.length - 1">Next</button>
     </div>
-  </template>
+    <pow-bubble
+      v-if="showPow"
+      :showPow="showPow"
+      :powTop="powTop"
+      :powLeft="powLeft"
+      @close="handlePowClose"
+    />
+  </div>
+</template>
   
   
   <script>
+  import PowBubble from "../components/PowBubble.vue";
   export default {
+    components: {
+    PowBubble,
+  },
     data() {
       return {
         comics: [
-        { title: 'Comic 1', cover: 'url_to_comic1_cover.jpg', description: 'Description for Comic 1' },
+        { title: 'Amazing Fantasy', cover: this.$store.state.comicCover , description: 'Description for Comic 1' },
         { title: 'Comic 2', cover: 'url_to_comic2_cover.jpg', description: 'Description for Comic 2' },
         { title: 'Comic 3', cover: 'url_to_comic3_cover.jpg', description: 'Description for Comic 3' },
         { title: 'Comic 4', cover: 'url_to_comic4_cover.jpg', description: 'Description for Comic 4' },
@@ -54,27 +63,37 @@
     methods: {
       nextItem() {
         if (this.currentIndex < this.comics.length - 1) {
-          this.currentIndex++;
-          this.rotation += 360; // Rotate by 360 degrees for a full rotation
-        }
-      },
-      prevItem() {
-        if (this.currentIndex > 0) {
-          this.currentIndex--;
-          this.rotation -= 360; // Rotate by -360 degrees for a full rotation in the opposite direction
-        }
-      },
-      showPowMessage(event) {
+      this.currentIndex++;
+      this.rotation += 720;
+      this.showPow = true;
+
+    
+      setTimeout(() => {
+        this.showPow = false;
+      }, 1000); // Hide after 1 second (adjust as needed)
+    }
+    
+  },
+  prevItem() {
+      if (this.currentIndex > 0) {
+        this.currentIndex--;
+        this.rotation -= 720;
         this.showPow = true;
-        this.powTop = event.clientY - 100 + 'px';
-        this.powLeft = event.clientX - 100 +'px';
+
         setTimeout(() => {
           this.showPow = false;
         }, 1000); // Hide after 1 second (adjust as needed)
-      },
+      }
     },
-  };
-  </script>
+  handlePowClose() {
+      // Handle the 'close' event from PowBubble component
+      this.showPow = false;
+    },
+  
+}
+}
+
+</script>
   
   <style scoped>
   /* Add your component styles here */
@@ -88,29 +107,6 @@
     height: 100vh; 
   }
 
-  .pow-bubble {
-  position: absolute;
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/electric.svg);
-  background-color: red;
-  background-size: cover;
-  color: black;
-  padding: 2% 2% 2% 2%;
-  font-size: 2.1vw;
-  font-style: italic;
-  font-weight: bold;
-  border-radius: 10px;
-  display: inline-block;
-  text-align: center;
-}
-.pow-text {
-    font-size: 35px;
-    font-weight: bold;
-    text-align: left;
-    margin-right:40px
-  
-}
-
- 
   .centered-header {
     margin-bottom: 20px;
   }
@@ -127,7 +123,7 @@
   }
   
   .comic-cover {
-    width: 100%; 
+    width: 25%; 
     height: auto; 
     margin-right: 10px;
   }
