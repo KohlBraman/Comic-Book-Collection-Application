@@ -1,5 +1,7 @@
 <template>
   <div id="register" class="text-center">
+    <div class="image-container">
+      <img src="https://www.looper.com/img/gallery/iron-mans-future-was-just-permanently-changed-by-a-new-villain/l-intro-1682530622.jpg" alt="Left Image" class="left-image" />
     <form v-on:submit.prevent="register">
       <h1>Create Account</h1>
       <div role="alert" v-if="registrationErrors">
@@ -27,6 +29,8 @@
       <button type="submit">Create Account</button>
       <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
+    <img src="https://cdn.marvel.com/content/1x/061ult_com_mas_mob_03.jpg" alt="Right Image" class="right-image" />
+    </div>
   </div>
 </template>
 
@@ -80,9 +84,45 @@ export default {
 </script>
 
 <style scoped>
+#register {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-image,
+.right-image {
+  position: absolute;
+  top: 0;
+  height: 35vh;
+}
+
+.left-image {
+  left: 0;
+}
+
+.right-image {
+  right: 0;
+}
+
+.register-form {
+  width: 300px;
+  text-align: center;
+}
+
 .form-input-group {
   margin-bottom: 1rem;
 }
+
 label {
   margin-right: 0.5rem;
 }
