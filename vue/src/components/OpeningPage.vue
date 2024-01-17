@@ -1,7 +1,7 @@
 <!-- OpeningPage.vue -->
 <template>
     <div>
-        <h1>Welcome to the Opening Page</h1>
+        <!-- <h1>Welcome to the Opening Page</h1> -->
         <TopTenComics />
     </div>
 </template>
