@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, person, comics, user_comic, user_collections, comic_user_collection CASCADE;
+DROP TABLE IF EXISTS users, persons, comics, user_comic, user_collections, comic_user_collection CASCADE;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -10,7 +10,7 @@ CREATE TABLE users (
 
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
-CREATE TABLE person (
+CREATE TABLE persons (
 	person_id SERIAL,
 	first_name varchar(50) NOT NULL,
 	last_name varchar(50) NOT NULL,
