@@ -6,6 +6,7 @@
 
         <ul class="nav-links">
             <li id="OpeningPage"><router-link v-bind:to="{ name: 'OpeningPage' }">Home</router-link></li>
+            <li id="UserPage"><router-link v-bind:to="{name: 'UserPage'}">Profile</router-link></li>
             <li id="logout"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
             <li id="login"><router-link v-bind:to="{name: 'login' }" >Login</router-link></li>
             

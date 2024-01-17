@@ -6,7 +6,8 @@ import { useStore } from 'vuex'
 import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import OpeningPageView from '../views/OpeningPageView.vue'
+import OpeningPageView from '../views/OpeningPageView.vue';
+import UserPageView from '../views/UserPageView.vue';
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
  * inside of App.vue depending on the URL.
@@ -22,6 +23,14 @@ const routes = [
     component: OpeningPageView,
     meta: {
       requiresAuth: false
+    }
+  },
+  {
+    path: '/user',
+    name: 'UserPage',
+    component: UserPageView,
+    meta: {
+      requiresAuth: true
     }
   },
   // {
