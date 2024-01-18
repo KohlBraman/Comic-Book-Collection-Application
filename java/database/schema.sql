@@ -33,12 +33,12 @@ CREATE TABLE comics (
 
 
 	CONSTRAINT PK_comics PRIMARY KEY (comic_id),
-	CONSTRAINT FK_comics_writer FOREIGN KEY (writer_id) REFERENCES person(person_id),
-	CONSTRAINT FK_comics_artist FOREIGN KEY (artist_id) REFERENCES person(person_id),
-	CONSTRAINT FK_comics_colorist FOREIGN KEY (colorist_id) REFERENCES person(person_id),
-	CONSTRAINT FK_comics_editor FOREIGN KEY (editor_id) REFERENCES person(person_id),
-	CONSTRAINT FK_comics_inker FOREIGN KEY (inker_id) REFERENCES person(person_id),
-	CONSTRAINT FK_comics_letterer FOREIGN KEY (letterer_id) REFERENCES person(person_id)
+	CONSTRAINT FK_comics_writer FOREIGN KEY (writer_id) REFERENCES persons(person_id),
+	CONSTRAINT FK_comics_artist FOREIGN KEY (artist_id) REFERENCES persons(person_id),
+	CONSTRAINT FK_comics_colorist FOREIGN KEY (colorist_id) REFERENCES persons(person_id),
+	CONSTRAINT FK_comics_editor FOREIGN KEY (editor_id) REFERENCES persons(person_id),
+	CONSTRAINT FK_comics_inker FOREIGN KEY (inker_id) REFERENCES persons(person_id),
+	CONSTRAINT FK_comics_letterer FOREIGN KEY (letterer_id) REFERENCES persons(person_id)
 );
 CREATE TABLE user_comic (
 	user_id int NOT NULL,
