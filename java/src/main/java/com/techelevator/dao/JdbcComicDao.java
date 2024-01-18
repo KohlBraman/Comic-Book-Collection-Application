@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import org.w3c.dom.DOMException;
 
 @Component
-public class JdbcComicDao implements ComicDao {
+public class git pullJdbcComicDao implements ComicDao {
 
     private final JdbcTemplate jdbcTemplate;
 

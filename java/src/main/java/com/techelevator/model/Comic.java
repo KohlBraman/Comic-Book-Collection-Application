@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Comic {
     private int comicId;
     private String title;
-    private String coverImage;
+    private String coverImg;
     private String volume;
     private int issueNumber;
     private Date coverDate;
@@ -19,11 +19,11 @@ public class Comic {
 
 
     public Comic(){}
-    public Comic(int comicId, String title, String coverImage, String volume, int issueNumber, Date coverDate,
+    public Comic(int comicId, String title, String coverImg, String volume, int issueNumber, Date coverDate,
                  int writerId, int artistId, int coloristId, int editorId, int inkerId, int lettererId) {
         this.comicId = comicId;
         this.title = title;
-        this.coverImage = coverImage;
+        this.coverImg = coverImg;
         this.volume = volume;
         this.issueNumber = issueNumber;
         this.coverDate = coverDate;
@@ -51,12 +51,12 @@ public class Comic {
         this.title = title;
     }
 
-    public String getCoverImage() {
-        return coverImage;
+    public String getCoverImg() {
+        return coverImg;
     }
 
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage;
+    public void setCoverImg(String coverImg) {
+        this.coverImg = coverImg;
     }
 
     public String getVolume() {
