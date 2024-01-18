@@ -1,8 +1,8 @@
 <template>
   <div id="login">
     <div class="image-container">
-      <img src="https://i.pinimg.com/736x/9c/9b/e7/9c9be78eb0e51b298f06dddf0dbd1223.jpg" 
-      alt="Left Image" class="left-image" />
+      <!-- <img src="https://i.pinimg.com/736x/9c/9b/e7/9c9be78eb0e51b298f06dddf0dbd1223.jpg"  -->
+      <!-- alt="Left Image" class="left-image" /> -->
     <form v-on:submit.prevent="login">
       <h1 >Please Sign In</h1>
       <div role="alert" v-if="invalidCredentials">
@@ -23,8 +23,8 @@
       <p>
       <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
     </form>
-    <img src="https://cdnb.artstation.com/p/assets/images/images/020/334/885/large/emmanuel-andrade-batmanlaughs-f.jpg?1567382890" alt="Right Image" class="right-image" />
-      <img src="https://darkknightnews.com/wp-content/uploads/2018/11/Gotham-1024x517.jpg" alt="Bottom Image" class="bottom-image" />
+    <!-- <img src="https://cdnb.artstation.com/p/assets/images/images/020/334/885/large/emmanuel-andrade-batmanlaughs-f.jpg?1567382890" alt="Right Image" class="right-image" />
+      <img src="https://darkknightnews.com/wp-content/uploads/2018/11/Gotham-1024x517.jpg" alt="Bottom Image" class="bottom-image" /> -->
       </div>
   </div>
 </template>
@@ -71,7 +71,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 45vh; 
+  height: 73vh; 
+  background-image: url(../assets/backround.png);
+  background-size: 575px 575px ;
+  background-position: center;
+  background-repeat:no-repeat ;
 }
 
 .image-container {
