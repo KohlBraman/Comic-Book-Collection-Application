@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Comic;
+import com.techelevator.model.QueryDto;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -9,6 +10,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.DOMException;
+
+import java.sql.SQLDataException;
 
 @Component
 public class JdbcComicDao implements ComicDao {
@@ -22,7 +25,7 @@ public class JdbcComicDao implements ComicDao {
     public Comic getComicById(int comicId){
         Comic comic = null;
         String sql = "SELECT comic_id, title, cover_img, volume, issue_number, cover_date, " +
-                "writer_id, artist_id, colorist_id, editor_id, inker_id, letter_id " +
+                "writer_id, artist_id, colorist_id, editor_id, inker_id, letterer_id " +
                 "FROM comics WHERE comic_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, comicId);
@@ -35,13 +38,14 @@ public class JdbcComicDao implements ComicDao {
         return comic;
     }
 
-    public Comic getComicByTitle(String comicTitle){
+    public Comic getComicByTitle(QueryDto queryDto){
         Comic comic = null;
         String sql = "SELECT comic_id, title, cover_img, volume, issue_number, cover_date, " +
-                "writer_id, artist_id, colorist_id, editor_id, inker_id, letter_id " +
+                "writer_id, artist_id, colorist_id, editor_id, inker_id, letterer_id " +
                 "FROM comics WHERE title = ?";
         try {
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, comicTitle);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, queryDto.getComicTitle());
+
             if(results.next()) {
                 comic = mapRowToComic(results);
             }
