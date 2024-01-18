@@ -1,18 +1,19 @@
 <template>
     <div class="headerNav">
-        <h1>Welcome to the Opening Page</h1>
-
-
-
-        <ul class="nav-links">
-            <li id="OpeningPage"><router-link v-bind:to="{ name: 'OpeningPage' }">Home</router-link></li>
-            <li id="UserPage"><router-link v-bind:to="{name: 'UserPage'}">Profile</router-link></li>
-            <li id="logout"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
-            <li id="login"><router-link v-bind:to="{name: 'login' }" >Login</router-link></li>
-            
-        </ul>
+      <h1>Welcome to the Opening Page</h1>
+  
+      <ul class="nav-links">
+        <li id="OpeningPage"><router-link v-bind:to="{ name: 'OpeningPage' }">Home</router-link></li>
+        <li id="UserPage"><router-link v-bind:to="{ name: 'UserPage' }">Profile</router-link></li>
+        <li id="logout" v-if="$store.state.token !== undefined && $store.state.token !== ''">
+          <router-link v-bind:to="{ name: 'logout' }">Logout</router-link>
+        </li>
+        <li id="login" v-else>
+          <router-link v-bind:to="{ name: 'login' }">Login</router-link>
+        </li>
+      </ul>
     </div>
-</template>
+  </template>
 
 
 
