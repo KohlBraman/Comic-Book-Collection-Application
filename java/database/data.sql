@@ -39,6 +39,18 @@ VALUES ('In The Hands of ... Mephisto!', 'https://comicvine.gamespot.com/a/uploa
     ('Arcadia, Part 3: 120 Days of Sod All', 'https://comicvine.gamespot.com/a/uploads/scale_large/6/67663/4404810-07.jpg', 'The Invisibles', 7, '03/01/1995', 4, 9, 13, 17, 22, 27),
     ('Home', 'https://comicvine.gamespot.com/a/uploads/scale_large/0/4/46617-3824-55260-1-wonder-woman.jpg', 'Wonder Woman', 89, '08/01/1994', 5, 10, 14, 18, 23, 27);
 
+INSERT INTO user_collections (collection_name, user_id)
+VALUES ('Marvel Collection', 1),
+    ('DC Collection', 2);
+
+INSERT INTO comic_user_collection (comic_id, user_collection_id)
+VALUES (1, 1),
+    (2, 2),
+    (3, 1),
+    (4, 2),
+    (5, 2);
+
+
 
 
 

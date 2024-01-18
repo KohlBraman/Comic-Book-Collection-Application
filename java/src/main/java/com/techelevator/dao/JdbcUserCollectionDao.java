@@ -23,7 +23,7 @@ public class JdbcUserCollectionDao implements UserCollectionDao {
 
     public UserCollection getCollectionById(int collectionId){
         UserCollection userCollection = null;
-        String sql = "SELECT * FROM user_collection WHERE collection_id = ?";
+        String sql = "SELECT * FROM user_collections WHERE user_collection_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, collectionId);
             if(results.next()) {
@@ -37,7 +37,7 @@ public class JdbcUserCollectionDao implements UserCollectionDao {
 
     public List<UserCollection> getCollectionByTitle (QueryDto queryDto){
         List<UserCollection> collectionList = new ArrayList<>();
-        String sql = "SELECT * FROM user_collection WHERE collection_name = ?";
+        String sql = "SELECT * FROM user_collections WHERE collection_name = ?";
 
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, queryDto.getCollectionTitle());
@@ -53,8 +53,8 @@ public class JdbcUserCollectionDao implements UserCollectionDao {
 
     private UserCollection mapRowToUserCollection(SqlRowSet rs) {
         UserCollection userCollection = new UserCollection();
-        userCollection.setUserCollectionId(rs.getInt("userCollectionId"));
-        userCollection.setCollectionName(rs.getString("collectionName"));
+        userCollection.setUserCollectionId(rs.getInt("user_collection_id"));
+        userCollection.setCollectionName(rs.getString("collection_name"));
         userCollection.setUserId(rs.getInt("user_id"));
 
         return userCollection;
