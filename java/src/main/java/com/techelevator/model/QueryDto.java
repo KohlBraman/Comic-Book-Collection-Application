@@ -4,6 +4,7 @@ public class QueryDto {
 
     private String comicTitle;
     private String superHero;
+    private String collectionTitle;
 
     public String getSuperHero() {
         return superHero;
@@ -21,4 +22,11 @@ public class QueryDto {
         this.comicTitle = comicTitle;
     }
 
+    public String getCollectionTitle() {
+        return collectionTitle;
+    }
+
+    public void setCollectionTitle(String collectionTitle) {
+        this.collectionTitle = collectionTitle;
+    }
 }

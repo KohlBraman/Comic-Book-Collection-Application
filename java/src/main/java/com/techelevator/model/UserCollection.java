@@ -11,6 +11,8 @@ public class UserCollection {
         this.userId = userId;
     }
 
+    public UserCollection() {}
+
     public int getUserCollectionId() {
         return userCollectionId;
     }
