@@ -20,7 +20,7 @@ public class JdbcComicDao implements ComicDao {
     }
 
     public Comic getComicById(int comicId){
-        Comic comic = nil;
+        Comic comic = null;
         String sql = "SELECT comic_id, title, cover_img, volume, issue_number, cover_date, " +
                 "writer_id, artist_id, colorist_id, editor_id, inker_id, letter_id " +
                 "FROM comics WHERE comic_id = ?";
@@ -36,7 +36,7 @@ public class JdbcComicDao implements ComicDao {
     }
 
     public Comic getComicByTitle(String comicTitle){
-        Comic comic = nil;
+        Comic comic = null;
         String sql = "SELECT comic_id, title, cover_img, volume, issue_number, cover_date, " +
                 "writer_id, artist_id, colorist_id, editor_id, inker_id, letter_id " +
                 "FROM comics WHERE title = ?";
