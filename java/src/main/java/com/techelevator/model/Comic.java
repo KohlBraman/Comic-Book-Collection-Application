@@ -1,13 +1,15 @@
 package com.techelevator.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Comic {
     private int comicId;
     private String title;
+    private String coverImage;
     private String volume;
     private int issueNumber;
-    private LocalDate coverDate;
+    private Date coverDate;
     private int writerId;
     private int artistId;
     private int coloristId;
@@ -15,10 +17,13 @@ public class Comic {
     private int inkerId;
     private int lettererId;
 
-    public Comic(int comicId, String title, String volume, int issueNumber, LocalDate coverDate,
+
+    public Comic(){}
+    public Comic(int comicId, String title, String coverImage, String volume, int issueNumber, Date coverDate,
                  int writerId, int artistId, int coloristId, int editorId, int inkerId, int lettererId) {
         this.comicId = comicId;
         this.title = title;
+        this.coverImage = coverImage;
         this.volume = volume;
         this.issueNumber = issueNumber;
         this.coverDate = coverDate;
@@ -46,6 +51,14 @@ public class Comic {
         this.title = title;
     }
 
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
+
     public String getVolume() {
         return volume;
     }
@@ -62,11 +75,11 @@ public class Comic {
         this.issueNumber = issueNumber;
     }
 
-    public LocalDate getCoverDate() {
+    public Date getCoverDate() {
         return coverDate;
     }
 
-    public void setCoverDate(LocalDate coverDate) {
+    public void setCoverDate(Date coverDate) {
         this.coverDate = coverDate;
     }
 
