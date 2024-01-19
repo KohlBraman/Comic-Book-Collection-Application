@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.w3c.dom.DOMException;
 
 import java.sql.SQLDataException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class JdbcComicDao implements ComicDao {
@@ -53,6 +55,22 @@ public class JdbcComicDao implements ComicDao {
             throw new DaoException("Unable to connect to server or database.", e);
         }
         return comic;
+    }
+
+    public List<Comic> listAllComics() {
+        List<Comic> comicList = new ArrayList<>();
+        String sql = "SELECT * FROM comics;";
+
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+
+            while(results.next()) {
+                comicList.add(mapRowToComic(results));
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database.", e);
+        }
+        return comicList;
     }
 
     //TODO add more methods to get by partial title, artists, user, collection, etc which return a List of comics.

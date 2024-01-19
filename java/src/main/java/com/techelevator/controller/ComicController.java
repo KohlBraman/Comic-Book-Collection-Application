@@ -15,6 +15,8 @@ import com.techelevator.dao.UserDao;
 import com.techelevator.security.jwt.TokenProvider;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 public class ComicController {
 
@@ -34,6 +36,12 @@ public class ComicController {
     public Comic getComicByTitle(@RequestBody QueryDto queryDto) {
         Comic comic = comicDao.getComicByTitle(queryDto);
         return comic;
+    }
+
+    @RequestMapping(path = "/comics", method = RequestMethod.GET)
+    public List<Comic> listAllComics() {
+        List<Comic> comicList = comicDao.listAllComics();
+        return comicList;
     }
 
 }
