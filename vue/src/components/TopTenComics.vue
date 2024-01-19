@@ -154,8 +154,10 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 height: 100vh;
-padding: 3%;
+padding:5% ;
+margin-top: -30px;
 color: #39200a;
+box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .centered-header {
@@ -168,16 +170,18 @@ padding: 10px;
 margin-bottom: 10px;
 transition: transform 0.5s ease;
 background-image: url(../assets/aBackround.jpeg);
+
 background-size:50cap;
-
-
+box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
 
 }
+
 
 .comic-content {
 display: flex;
 margin: 1%;
 background-color:rgba(255, 255, 255, .9);
+box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); 
 
 }
 
@@ -185,6 +189,7 @@ background-color:rgba(255, 255, 255, .9);
 width: 25%;
 height: auto;
 margin-right: 10px;
+box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); 
 }
 
 .navigation {
@@ -195,6 +200,7 @@ justify-content: space-between;
 button {
 margin: 5px;
 cursor: pointer;
+box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); 
 }
 
 </style>

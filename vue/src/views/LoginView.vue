@@ -1,32 +1,33 @@
 <template>
   <div id="login">
     <div class="image-container">
-      <!-- <img src="https://i.pinimg.com/736x/9c/9b/e7/9c9be78eb0e51b298f06dddf0dbd1223.jpg"  -->
-      <!-- alt="Left Image" class="left-image" /> -->
-    <form v-on:submit.prevent="login">
-      <h1 >Please Sign In</h1>
-      <div role="alert" v-if="invalidCredentials">
-        Invalid username and password!
-      </div>
-      <div role="alert" v-if="this.$route.query.registration">
-        Thank you for registering, please sign in.
-      </div>
-      <div class="form-input-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
-      </div>
-      <div class="form-input-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
-      </div>
-      <button type="submit">Sign in</button>
-      <p>
-      <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
-    </form>
-    <!-- <img src="https://cdnb.artstation.com/p/assets/images/images/020/334/885/large/emmanuel-andrade-batmanlaughs-f.jpg?1567382890" alt="Right Image" class="right-image" />
-      <img src="https://darkknightnews.com/wp-content/uploads/2018/11/Gotham-1024x517.jpg" alt="Bottom Image" class="bottom-image" /> -->
-      </div>
+      <!-- Set the background image for the container -->
+      <img src="../assets/thoughtTeal.jpeg" alt="Image Alt Text" class="background-image">
+
+      <form v-on:submit.prevent="login" class="form-container">
+        <h1>Please Sign In</h1>
+        <div role="alert" v-if="invalidCredentials">Invalid username and password!</div>
+        <div role="alert" v-if="this.$route.query.registration">
+          Thank you for registering, please sign in.
+        </div>
+        <div class="form-input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" v-model="user.username" required autofocus />
+        </div>
+        <div class="form-input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" v-model="user.password" required />
+        </div>
+        <button type="submit">Sign in</button>
+       
+      </form>
+      
+    </div>
   </div>
+  <div>
+    <p class="register-button"><router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
+  </div>
+  
 </template>
 
 <script>
@@ -67,60 +68,155 @@ export default {
 </script>
 
 <style scoped>
-#login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 73vh; 
-  background-image: url(../assets/backround.png);
-  background-size: 575px 575px ;
-  background-position: center;
-  background-repeat:no-repeat ;
-}
-
 .image-container {
   position: relative;
+  
+}
+
+.background-image {
+  max-width: 59%; /* Adjust the max-width as needed */
+  max-height: 100dvh; /* Adjust the max-height as needed */
   width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.left-image,
-.right-image {
+  height: 100%;
   position: absolute;
-  top: 0;
-  height: 215%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -2;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
 }
 
-.left-image {
-  left: 0;
+.form-container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 200px;
+  border-radius: 8px;
+  margin: 50px auto; 
+  top: -10px; 
+  
+  
 }
 
-.right-image {
-  right: 0;
+
+button {
+  background-color: rgba(255, 0, 0, 0.8); 
+  color:black;
+  padding: 10px 20px; /* Padding inside the button */
+  margin-top: 20px;
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Cursor style on hover */
+  font-size: 16px; /* Font size */
+  font-weight: bold;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); 
 }
 
-.bottom-image {
-  position: absolute;
-  bottom: 0;
-  width: 50%;
-  margin-bottom: -400px; 
+button:hover {
+  background-color: #17a790; /* Darker green color on hover */
 }
 
-.login-container {
-  width: 100%; 
+/* Customize text box styles */
+.form-input-group label {
+  margin-right: 18px; /* Add margin between label and text box */
+  padding-left: 24px ;
+  font-size: 19px;
+  font-weight: 700;
+  
+}
+.form-input-group input {
+  width: 9%;
+  padding: 7px;
+  margin: 9px 0;
+  box-sizing: border-box;
+  border: 1px solid #17a790;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1); 
+  
+  
+}
+.register-button {
+  background-color: rgba(255, 0, 0, 0.7); 
+  color: #0b0a0a; /* Set the text color */
+  padding: 10px 20px; /* Padding inside the button */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Cursor style on hover */
+  text-decoration: none; /* Remove underline for router-link */
+  display: inline-block; /* Make it inline-block for proper styling */
+  font-size: 16px; /* Font size */
+  font-weight: bold;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  margin-left:600px;
+  margin-top:-10px;
+  
+}
+.register-button:hover {
+  background-color: #17a790;;
 }
 
-.login-form {
-  width: 300px; 
+@media (max-width: 1400px) {
+
+  .register-button {
+  color: #ffffff; /* Set the text color */
+  padding: 10px 20px; /* Padding inside the button */
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Cursor style on hover */
+  text-decoration: none; /* Remove underline for router-link */
+  display: inline-block; /* Make it inline-block for proper styling */
+  font-size: 16px; /* Font size */
+  font-weight: bold;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  margin-left:500px;
+  margin-top:-10px;
+  
 }
 
-.form-input-group {
-  margin-bottom: 1rem;
+  button {
+  background-color: rgba(255, 0, 0, 0.8); 
+  color: black; 
+  padding: 10px 20px; /* Padding inside the button */
+  margin-top: 20px;
+  border: none; /* No border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Cursor style on hover */
+  font-size: 16px; /* Font size */
+  font-weight: bold;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); 
 }
 
-label {
-  margin-right: 0.5rem;
+.form-input-group label {
+  margin-right: 18px; /* Add margin between label and text box */
+  padding-left: 24px ;
+  font-size: 15px;
+  font-weight: 700;
+  
 }
+.form-input-group input {
+  width: 9%;
+  padding: 7px;
+  margin: 9px 0;
+  box-sizing: border-box;
+  border: 1px solid #17a790;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1); 
+  
+}
+.form-container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 200px;
+  border-radius: 8px;
+  margin: 50px auto; 
+  top: 10px; 
+  
+}
+
+}
+
+
+
+
 </style>
