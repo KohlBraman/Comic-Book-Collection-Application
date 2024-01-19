@@ -40,7 +40,7 @@
   
   <style scoped>
   .pow-bubble {
-    position: absolute;
+    /* position: absolute; */
     background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/4273/electric.svg);
     background-color: red;
     background-size: cover;
