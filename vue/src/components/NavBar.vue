@@ -1,6 +1,6 @@
 <template>
   <div class="headerNav">
-    <h1>Welcome to the Opening Page</h1>
+    <h1>Amazing Traders</h1>
 
     <ul class="nav-links">
       <li id="OpeningPage"><router-link v-bind:to="{ name: 'OpeningPage' }">Home</router-link></li>
