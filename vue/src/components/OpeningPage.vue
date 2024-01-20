@@ -1,4 +1,4 @@
-<!-- OpeningPage.vue -->
+
 <template>
     <div>
         <h1>Welcome to the Opening Page</h1>

@@ -1,9 +1,7 @@
 <template>
   <div id="capstone-app">
     <div class="nave-bar">
-      <nav-bar></nav-bar>
-      <!-- <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp; -->
-      <!-- <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link> -->
+      <nav-bar></nav-bar> 
     </div>
     <router-view />
     
@@ -43,15 +41,8 @@ export default {
   bottom: 0;
   left: 0;
   background-color: rgba(240, 240, 240, 0.6); /* Adjust the alpha value for translucency */
-  /* Set your desired background color */
   z-index: -2; /* Set a lower z-index value than the other elements */
-  /* You can also use background-image with a URL to add a background image */
-  /* background-image: url('path-to-your-image.jpg'); */
-  /* Adjust other background properties as needed */
-  /* background-repeat: repeat; */
-  /* background-position: center center; */
-  /* background-attachment: fixed; */
-  /* background-size: cover; */
+
 }
 
 </style>

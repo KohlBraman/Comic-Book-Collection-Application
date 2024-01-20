@@ -1,6 +1,9 @@
 <template>
-  <div class="headerNav">
-    <h1>Amazing Traders</h1>
+  
+ <div class="headerNav">
+    <h2>
+      <img src="../assets/Logo2.png" alt="Logo" class="logo-image" />
+    </h2>
 
     <ul class="nav-links">
       <li id="OpeningPage"><router-link v-bind:to="{ name: 'OpeningPage' }">Home</router-link></li>
@@ -15,7 +18,7 @@
         <img src="../assets/superman.jpeg" alt="Image Alt Text" class="icon-image">
       </li> -->
       
-
+      
     </ul>
   </div>
 </template>
@@ -32,18 +35,21 @@ export default {
 
 <style scoped>
 
-h1 {
+/* Add a class to style the logo image */
+.logo-image {
+  width: 190px; /* Adjust the width as needed */
+  height: auto; /* Maintain aspect ratio */
+  display:flex;
+  
+}
+h2 {
 text-align: center;
-background-color: rgba(255, 0, 0, 0.7);
-font-family: 'Super Comic';
-text-transform: uppercase;
-font-weight: normal;
-height: 80px;
+background-color: rgba(255, 0, 0, 0.3);
+height: 160px;
 display: flex;
-
-justify-content: center; /* Center the text vertically */
-align-items: center; /* Center the text horizontally */
-box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1); 
+justify-content: center; 
+align-items: center; 
+box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3); 
 }
 
 
