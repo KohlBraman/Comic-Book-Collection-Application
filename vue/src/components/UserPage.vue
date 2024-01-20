@@ -2,6 +2,9 @@
     <div class="welcome-box">
         <h1>Welcome to your profile!</h1>
     </div>
+    <div class="comic-collection">
+        <ComicCollection/>
+    </div>
     <div class="main-container">
 
         <div class="profile-container">
@@ -30,7 +33,8 @@
 </template>
   
 <script>
-import UpdateProfile from '../components/UpdateProfile.vue'
+import UpdateProfile from '../components/UpdateProfile.vue';
+import ComicCollection from '../components/ComicCollection.vue';
 
 export default {
     data() {
@@ -44,28 +48,45 @@ export default {
         }
     },
     components: {
-        UpdateProfile
+        UpdateProfile,
+        ComicCollection
     },
 }
 </script>
   
 <style scoped>
-.main-container {
+
+.comic-collection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* border: solid black; */
+    max-width: 800px;
+   margin: 0 auto;
+    
+  }
+  .main-container {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    margin-top: -300px;
+    
 
 }
+
 
 .profile-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 20px;
+    align-items: center;
+    
+    margin-bottom: 100px;
 }
 
 #profileIcon {
     align-items: center;
+    
 }
 
 .welcome-box {
