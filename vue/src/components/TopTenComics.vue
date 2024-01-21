@@ -112,6 +112,31 @@ export default {
 
 </script>
 <style scoped>
+
+
+
+.centered-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 5%;
+  margin-top: 10px; /* Adjusted margin to create spacing on top */
+  color: #39200a;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  
+}
+
+@media (min-width: 768px) {
+  .centered-container {
+    padding: 5% 10% 2%; 
+   
+  }
+}
+
+
 .comic-info {
   display: flex;
   flex-direction: column;
@@ -131,6 +156,7 @@ export default {
   margin-left: 10px;
   max-width: 600px;
   font-weight: bolder;
+ 
 }
 
 .info-group-d {
@@ -165,6 +191,7 @@ export default {
   margin-top: -30px;
   color: #39200a;
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  
 }
 
 .centered-header {
@@ -190,6 +217,8 @@ export default {
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
 
 }
+
+
 
 .comic-cover {
   width: 25%;

@@ -19,15 +19,15 @@
           <input type="password" id="password" v-model="user.password" required />
         </div>
         <button type="submit">Sign in</button>
-       
       </form>
-      
+    </div>
+
+    <div class="center">
+      <p class="register-button">
+        <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>
+      </p>
     </div>
   </div>
-  <div>
-    <p class="register-button"><router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
-  </div>
-  
 </template>
 
 <script>
@@ -70,153 +70,126 @@ export default {
 <style scoped>
 .image-container {
   position: relative;
-  
+  margin-top: 100px
 }
 
 .background-image {
-  max-width: 59%; /* Adjust the max-width as needed */
-  max-height: 100dvh; /* Adjust the max-height as needed */
-  width: 100%;
-  height: 100%;
+  max-width: 90%;
+  height: auto;
+  width: 80%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: -2;
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
 }
 
+@media (min-width: 1300px) {
+  .background-image {
+  max-width: 70%; /* Adjust max-width for larger screens */
+  }
+  .image-container {
+  position: relative;
+  margin-top: 100px
+}
+}
 .form-container {
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: 200px;
+  padding: 10% 5%;
   border-radius: 8px;
-  margin: 50px auto; 
-  top: -10px; 
-  
-  
+  margin: 5% auto;
 }
 
-
 button {
-  background-color: rgba(255, 0, 0, 0.8); 
-  color:black;
-  padding: 10px 20px; /* Padding inside the button */
-  margin-top: 20px;
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Cursor style on hover */
-  font-size: 16px; /* Font size */
+  background-color: rgba(255, 0, 0, 0.6);
+  color: black;
+  padding: 9px 20px;
+  margin-top: .5%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
   font-weight: bold;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-  background-color: #17a790; /* Darker green color on hover */
+  background-color: #17a790;
 }
 
-/* Customize text box styles */
 .form-input-group label {
-  margin-right: 18px; /* Add margin between label and text box */
-  padding-left: 24px ;
+  margin-right: 18px;
+  padding-left: 24px;
   font-size: 19px;
   font-weight: 700;
-  
 }
+
 .form-input-group input {
-  width: 9%;
+  width: 180px; /* You can adjust the percentage or use a fixed value like width: 200px; */
   padding: 7px;
   margin: 9px 0;
   box-sizing: border-box;
   border: 1px solid #17a790;
   border-radius: 4px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1); 
-  
-  
-}
-.register-button {
-  background-color: rgba(255, 0, 0, 0.7); 
-  color: #0b0a0a; /* Set the text color */
-  padding: 10px 20px; /* Padding inside the button */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Cursor style on hover */
-  text-decoration: none; /* Remove underline for router-link */
-  display: inline-block; /* Make it inline-block for proper styling */
-  font-size: 16px; /* Font size */
-  font-weight: bold;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-  margin-left:600px;
-  margin-top:-10px;
-  
-}
-.register-button:hover {
-  background-color: #17a790;;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 1400px) {
+.register-button {
+  background-color: rgba(255, 0, 0, 0.6);
+  color: #0b0a0a;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  margin-top: .8%;
+
+}
+
+.register-button:hover {
+  background-color: #17a790;
+}
+
+.center {
+  text-align: center;
+}
+
+@media (max-width: 1300px) {
 
   .register-button {
-  color: #ffffff; /* Set the text color */
-  padding: 10px 20px; /* Padding inside the button */
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Cursor style on hover */
-  text-decoration: none; /* Remove underline for router-link */
-  display: inline-block; /* Make it inline-block for proper styling */
-  font-size: 16px; /* Font size */
-  font-weight: bold;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-  margin-left:500px;
-  margin-top:-10px;
-  
-}
-
+    color: #ffffff;
+  }
   button {
-  background-color: rgba(255, 0, 0, 0.8); 
-  color: black; 
-  padding: 10px 20px; /* Padding inside the button */
-  margin-top: 20px;
-  border: none; /* No border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Cursor style on hover */
-  font-size: 16px; /* Font size */
-  font-weight: bold;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); 
-}
+    background-color: rgba(255, 0, 0, 0.8);
+  }
 
-.form-input-group label {
-  margin-right: 18px; /* Add margin between label and text box */
-  padding-left: 24px ;
-  font-size: 15px;
-  font-weight: 700;
-  
-}
-.form-input-group input {
-  width: 9%;
-  padding: 7px;
-  margin: 9px 0;
-  box-sizing: border-box;
-  border: 1px solid #17a790;
-  border-radius: 4px;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1); 
-  
-}
-.form-container {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 200px;
-  border-radius: 8px;
-  margin: 50px auto; 
-  top: 10px; 
-  
-}
+  .form-input-group label {
+    font-size: 15px;
+  }
 
+  .form-input-group input {
+    width: 100%;
+  }
+
+  .form-container {
+    padding: 10% 10%;
+  }
+  .form-input-group input {
+    width: 20%; 
+  }
 }
-
-
+@media (min-width: 1920px) {
+  .image-container {
+  margin-top: 200px
+}
+}
 
 
 </style>
