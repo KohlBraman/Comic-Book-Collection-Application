@@ -1,8 +1,8 @@
 <template>
-  <div id="register" class="text-center">
-    <div class="image-container">
-      <img src="https://www.looper.com/img/gallery/iron-mans-future-was-just-permanently-changed-by-a-new-villain/l-intro-1682530622.jpg" alt="Left Image" class="left-image" />
-    <form v-on:submit.prevent="register">
+  <div id="register" class="image-container">
+    <img src="../assets/thoughtTeal.jpeg" alt="Image Alt Text" class="background-image">
+  
+    <form v-on:submit.prevent="register" class="form-container register-form">
       <h1>Create Account</h1>
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
@@ -19,7 +19,7 @@
         <label for="confirmPassword">Confirm Password</label>
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
-      <div class="form-input-group">
+      <div class="form-input-user">
         <label for="userRole">Select User Type</label>
         <select id="userRole" v-model="user.role" required>
           <option value="user" checked>Standard User</option>
@@ -27,9 +27,10 @@
         </select>
       </div>
       <button type="submit">Create Account</button>
-      <p><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
+      <p class="register-button" ><router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
-    <img src="https://cdn.marvel.com/content/1x/061ult_com_mas_mob_03.jpg" alt="Right Image" class="right-image" />
+    <div class="center">
+    <div class="spacer"></div>
     </div>
   </div>
 </template>
@@ -84,46 +85,177 @@ export default {
 </script>
 
 <style scoped>
+h1{
+  margin-bottom: -3%;
+  padding-bottom:3px ;
+}
+.image-container {
+  position: relative;
+  margin-top: 5%;
+}
+
 #register {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50vh;
+  flex-direction: column;
+  /* height: 100vh; */
+  position: relative;
 }
 
-.image-container {
+.background-image {
+  max-width: 97%;
+  height: auto;
+  width: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -2;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
   position: relative;
-  width: 100%;
+  z-index: 1;
+  text-align: center;
+  padding: 10% 10%;
+  border-radius: 8px;
+  margin: 5% auto;
+  
+}
+
+button {
+  background-color: rgba(255, 0, 0, 0.6);
+  color: black;
+  padding: 5px 10px;
+  margin-top: 3%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+button:hover {
+  background-color: #17a790;
+}
+
+.register-button {
+  color: #0b0a0a;
+  margin-top:1% ;
+  padding-bottom: 5%;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+.form-input-group label {
+  display:flex ;
+  margin-right: 18px;
+  padding-left: 24px;
+  font-size: 15px;
+  font-weight: 700;
+  justify-content:center;
+  /* flex-shrink: ;  */
+  
+}
+.form-input-group {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center;
+  margin-bottom: 2px; /* Adjust as needed for spacing between form-input-groups */
+}
+
+.form-input-group label {
+  margin-bottom: 2px; /* Add space between label and input */
   display: flex;
   justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.form-input-group input {
+  width: 60%; /* Take up full width of the container */
+  height: 0%;
+  padding: 4px;
+  box-sizing: border-box;
+  border: 1px solid #17a790;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-input-user {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
   align-items: center;
 }
 
-.left-image,
-.right-image {
+.form-input-user label {
+  display: flex;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+select {
+  width: 60%;
+  padding: 4px;
+  font-size: 14px;
+  border: 1px solid #17a790;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  color: #333; 
+  cursor: pointer;
+}
+
+
+select::-ms-expand {
+  display: none;
+}
+
+select:after {
+  content: '\25BC'; /* Unicode character for down arrow */
   position: absolute;
-  top: 0;
-  height: 35vh;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
 }
 
-.left-image {
-  left: 0;
+/* Style the options */
+select option {
+  font-size: 14px;
+  background-color: #fff; /* Background color for each option */
 }
 
-.right-image {
-  right: 0;
+/* Style the select on hover */
+select:hover {
+  border-color: #17a790; /* Change border color on hover */
 }
 
-.register-form {
-  width: 300px;
-  text-align: center;
+.spacer {
+  height: 30px;
 }
 
-.form-input-group {
-  margin-bottom: 1rem;
+
+@media (min-width: 1200px) {
+  .background-image {
+  height: auto;
+  width: 97%;
+ 
+}
 }
 
-label {
-  margin-right: 0.5rem;
+
+
+@media (min-width: 1920px) {
+  .image-container {
+
+    max-width: 80%;
+    margin: 100px auto 0; /* Center the container horizontally */
+    
+  } 
 }
+
+
 </style>
