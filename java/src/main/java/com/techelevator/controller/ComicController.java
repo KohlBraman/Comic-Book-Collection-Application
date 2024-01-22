@@ -15,6 +15,7 @@ import com.techelevator.dao.UserDao;
 import com.techelevator.security.jwt.TokenProvider;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -23,8 +24,11 @@ public class ComicController {
 
     private ComicDao comicDao;
 
-    public ComicController(ComicDao comicDao) {
+    private UserDao userDao;
+
+    public ComicController(ComicDao comicDao, UserDao userDao) {
         this.comicDao = comicDao;
+        this.userDao = userDao;
     }
 
     @RequestMapping(path = "/comics/{comicId}", method = RequestMethod.GET)
@@ -45,11 +49,17 @@ public class ComicController {
         return comicList;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/user/{user_id}/addComic", method = RequestMethod.POST)
-    public Comic addComicByUserId (@RequestBody Comic comic, @PathVariable String user_id) {
-        int userId = Integer.parseInt(user_id);
-        return comicDao.addComicByUserId(comic, userId);
-    }
+    public Comic addComicByUserId (@RequestBody Comic comic, @PathVariable String user_id, Principal principal) {
 
+        int userId = Integer.parseInt(user_id);
+        int loggedInUser = userDao.getUserByUsername(principal.getName()).getId();
+        if(loggedInUser == userId) {
+            return comicDao.addComicByUserId(comic, userId);
+        } else {
+            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "Invalid User Action");
+        }
+    }
 }
