@@ -1,42 +1,51 @@
 <template>
-  <div class="welcome-box">
+  <div>
+    <div class="welcome-box">
       <h1>Welcome to your profile!</h1>
-  </div>
-  <div class="comic-collection">
-      <ComicCollection/>
-  </div>
-  <div class="main-container">
+    </div>
+    <div class="comic-collection">
+      <ComicCollection />
+    </div>
+    <div class="main-container">
       <div class="profile-container">
-          <div class="content-box">
-              <div class="icon-choice-box">
-                  <div id="ProfileIcon" class="profile-icon">
-                      <p class="comic-username">{{ userName }}</p>
-                      <img src="../assets/superman.jpeg" alt="profile picture placeholder">
-                  </div>
-                  <div id="ProfilePrompt">
-                      <p>{{ profilePrompt }}</p>
-                   <button v-show="!showUpdatePrompt" @click="toggleUpdatePrompt">Update Prompt</button>
-                   <div v-show="showUpdatePrompt" class="update-prompt-content">
-                   <input v-model="newProfilePrompt" type="text" placeholder="Type a new prompt">
-                   <button @click="updateProfilePrompt">Update Prompt</button>
-                  <button @click="cancelUpdatePrompt">Cancel</button>
+        <div class="content-box">
+          <div class="icon-choice-box">
+            <div id="ProfileIcon" class="profile-icon">
+              <p class="comic-username">{{ userName }}</p>
+              <img src="../assets/superman.jpeg" alt="profile picture placeholder">
             </div>
+            <div id="ProfilePrompt">
+              <p>{{ profilePrompt }}</p>
+              <button v-show="!showUpdatePrompt" @click="toggleUpdatePrompt">Update Prompt</button>
+              <div v-show="showUpdatePrompt" class="update-prompt-content">
+                <input v-model="newProfilePrompt" type="text" placeholder="Type a new prompt">
+                <button @click="updateProfilePrompt">Update Prompt</button>
+                <button @click="cancelUpdatePrompt">Cancel</button>
               </div>
-              </div>
-              <div class="update-profile-box">
-                  <button @click="toggleDropdown" v-show="!showDropdown">Update Profile</button>
-          <div v-show="showDropdown" class="dropdown-content">
-                      <UpdateProfile />
-                      <button @click="cancelUpdate" v-show="showDropdown">Cancel</button>
-                  </div>
-              </div>
+            </div>
           </div>
+        </div>
+        <div class="update-profile-box">
+          <button @click="toggleDropdown" v-show="!showDropdown">Update Profile</button>
+          <div v-show="showDropdown" class="dropdown-content">
+            <UpdateProfile />
+            <button @click="cancelUpdate" v-show="showDropdown">Cancel</button>
+          </div>
+        </div>
+
+        <!-- AddComic component placement -->
+        <div class="add-comic-box">
+          <AddComic @add-comic="handleAddComic" />
+        </div>
       </div>
+    </div>
   </div>
 </template>
+
 <script>
 import UpdateProfile from '../components/UpdateProfile.vue';
 import ComicCollection from '../components/ComicCollection.vue';
+import AddComic from '../components/AddComic.vue';
 export default {
   data() {
   return {
@@ -68,11 +77,20 @@ methods: {
       this.newProfilePrompt = '';
       this.showUpdatePrompt = false;
     }
-  }
+  },
+  handleAddComic(newComic) {
+      // You can add logic here to update your comic collection with the new comic
+      console.log('New Comic Added:', newComic);
+      // For example, you might want to add it to an array in your data
+      // this.comics.push(newComic);
+    },
+
 },
 components: {
   UpdateProfile,
-  ComicCollection
+  ComicCollection,
+  AddComic,
+
 },
 }
 </script>

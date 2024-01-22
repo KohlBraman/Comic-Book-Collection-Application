@@ -1,4 +1,7 @@
 <template>
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Marvel
+">
   <div id="capstone-app">
     <div class="nave-bar">
       <nav-bar></nav-bar> 
@@ -10,18 +13,20 @@
 </template>
 <script>
 import NavBar from './components/NavBar.vue'
-import Footer from "./components/Footer.vue";
-
+import Footer from "./components/Footer.vue"
 export default {
   components:{
     NavBar,
     Footer
   }
+  
 
 };
 </script>
 
 <style>
+
+
 #capstone-app {
   /* You can also use background-image with a URL to add a background image */
   background-image: url('./assets/footer.jpeg');

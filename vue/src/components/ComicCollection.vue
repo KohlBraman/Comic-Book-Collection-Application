@@ -21,6 +21,7 @@
 <script>
 import ListService from '../services/ListService.js';
 
+
 export default {
   data() {
     return {
