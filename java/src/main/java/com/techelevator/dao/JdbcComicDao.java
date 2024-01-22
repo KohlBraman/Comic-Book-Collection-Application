@@ -3,6 +3,8 @@ package com.techelevator.dao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.Comic;
 import com.techelevator.model.QueryDto;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -20,27 +22,27 @@ public class JdbcComicDao implements ComicDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public JdbcComicDao(JdbcTemplate jdbcTemplate){
+    public JdbcComicDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public Comic getComicById(int comicId){
+    public Comic getComicById(int comicId) {
         Comic comic = null;
         String sql = "SELECT comic_id, title, cover_img, volume, issue_number, cover_date, " +
                 "writer_id, artist_id, colorist_id, editor_id, inker_id, letterer_id " +
                 "FROM comics WHERE comic_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, comicId);
-            if(results.next()) {
+            if (results.next()) {
                 comic = mapRowToComic(results);
             }
-        } catch (CannotGetJdbcConnectionException e){
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database.", e);
         }
         return comic;
     }
 
-    public Comic getComicByTitle(QueryDto queryDto){
+    public Comic getComicByTitle(QueryDto queryDto) {
         Comic comic = null;
         String sql = "SELECT comic_id, title, cover_img, volume, issue_number, cover_date, " +
                 "writer_id, artist_id, colorist_id, editor_id, inker_id, letterer_id " +
@@ -48,10 +50,10 @@ public class JdbcComicDao implements ComicDao {
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, queryDto.getComicTitle());
 
-            if(results.next()) {
+            if (results.next()) {
                 comic = mapRowToComic(results);
             }
-        } catch (CannotGetJdbcConnectionException e){
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database.", e);
         }
         return comic;
@@ -64,7 +66,7 @@ public class JdbcComicDao implements ComicDao {
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
 
-            while(results.next()) {
+            while (results.next()) {
                 comicList.add(mapRowToComic(results));
             }
         } catch (CannotGetJdbcConnectionException e) {
@@ -73,9 +75,33 @@ public class JdbcComicDao implements ComicDao {
         return comicList;
     }
 
+    public Comic addComicByUserId(Comic comic, int user_id) {
+        Comic newComic = null;
+        String sql = "INSERT INTO comics (comic_id, title, cover_img, volume, issue_number, cover_date) " +
+                "VALUES (DEFAULT, ?, ?, ?, ?, ?) RETURNING comic_id";
+
+
+        try {
+            Integer newComicId = jdbcTemplate.queryForObject(sql, Integer.class, comic.getTitle(), comic.getCoverImg(),
+                    comic.getVolume(), comic.getIssueNumber(), comic.getCoverDate());
+
+            comic = getComicById(newComicId);
+
+
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("SQL syntax error", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+
+        return newComic;
+    }
+
     //TODO add more methods to get by partial title, artists, user, collection, etc which return a List of comics.
 
-    private Comic mapRowToComic(SqlRowSet rs){
+    private Comic mapRowToComic(SqlRowSet rs) {
         Comic comic = new Comic();
         comic.setComicId(rs.getInt("comic_id"));
         comic.setTitle(rs.getString("title"));
