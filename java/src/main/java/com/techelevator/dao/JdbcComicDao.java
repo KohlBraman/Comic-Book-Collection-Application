@@ -80,6 +80,8 @@ public class JdbcComicDao implements ComicDao {
         String sql = "INSERT INTO comics (comic_id, title, cover_img, volume, issue_number, cover_date) " +
                 "VALUES (DEFAULT, ?, ?, ?, ?, ?) RETURNING comic_id";
 
+        String userComicSql = "INSERT INTO user_comic (user_id, comic_id) VALUES (?, ?)";
+
 
         try {
             Integer newComicId = jdbcTemplate.queryForObject(sql, Integer.class, comic.getTitle(), comic.getCoverImg(),
@@ -87,6 +89,7 @@ public class JdbcComicDao implements ComicDao {
 
             comic = getComicById(newComicId);
 
+            jdbcTemplate.update(userComicSql, user_id, newComicId);
 
         } catch (BadSqlGrammarException e) {
             throw new DaoException("SQL syntax error", e);
@@ -96,7 +99,7 @@ public class JdbcComicDao implements ComicDao {
             throw new DaoException("Unable to connect to server or database", e);
         }
 
-        return newComic;
+        return comic;
     }
 
     //TODO add more methods to get by partial title, artists, user, collection, etc which return a List of comics.

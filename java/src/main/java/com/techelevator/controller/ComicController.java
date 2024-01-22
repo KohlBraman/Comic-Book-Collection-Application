@@ -46,11 +46,10 @@ public class ComicController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "/users/{user_id}/addComic", method = RequestMethod.POST)
+    @RequestMapping(path = "/user/{user_id}/addComic", method = RequestMethod.POST)
     public Comic addComicByUserId (@RequestBody Comic comic, @PathVariable String user_id) {
         int userId = Integer.parseInt(user_id);
         return comicDao.addComicByUserId(comic, userId);
-
     }
 
 }
