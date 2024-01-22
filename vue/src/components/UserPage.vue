@@ -12,19 +12,27 @@
             <div class="content-box">
 
                 <div class="icon-choice-box">
-                    <div id="ProfileIcon">
+                    <div id="ProfileIcon" class="profile-icon">
+                        <p>{{ userName }}</p>
                         <img src="../assets/superman.jpeg" alt="profile picture placeholder">
                     </div>
                     <div id="ProfilePrompt">
-                        <p>Which mask do you wear?</p>
-                    </div>
+                        <p>{{ profilePrompt }}</p>
+                     <button v-show="!showUpdatePrompt" @click="toggleUpdatePrompt">Update Prompt</button>
+                     <div v-show="showUpdatePrompt" class="update-prompt-content">
+                     <input v-model="newProfilePrompt" type="text" placeholder="Type a new prompt">
+                     <button @click="updateProfilePrompt">Update Prompt</button>
+                    <button @click="cancelUpdatePrompt">Cancel</button>
+              </div>
+                </div>
                 </div>
 
 
                 <div class="update-profile-box">
-                    <button @click="toggleDropdown">Update Profile</button>
-                    <div v-show="showDropdown" class="dropdown-content">
+                    <button @click="toggleDropdown" v-show="!showDropdown">Update Profile</button>
+            <div v-show="showDropdown" class="dropdown-content">
                         <UpdateProfile />
+                        <button @click="cancelUpdate" v-show="showDropdown">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -38,19 +46,43 @@ import ComicCollection from '../components/ComicCollection.vue';
 
 export default {
     data() {
-        return {
-            showDropdown: false
-        };
+    return {
+      showDropdown: false,
+      showUpdatePrompt: false,
+      newProfilePrompt: '',
+      profilePrompt: "Which mask do you wear?",
+      userName: "USER",
+      newUserName: '',
+      showUpdateUserName: false,
+    };
+  },
+  methods: {
+    toggleDropdown() {
+      this.showDropdown = !this.showDropdown;
     },
-    methods: {
-        toggleDropdown() {
-            this.showDropdown = !this.showDropdown;
-        }
+    toggleUpdatePrompt() {
+      this.showUpdatePrompt = !this.showUpdatePrompt;
+      
     },
-    components: {
-        UpdateProfile,
-        ComicCollection
+    cancelUpdate() {
+      this.showDropdown = false;
     },
+    cancelUpdatePrompt() {
+      this.showUpdatePrompt = false;
+    },
+    updateProfilePrompt() {
+      if (this.newProfilePrompt) {
+        this.profilePrompt = this.newProfilePrompt;
+        this.newProfilePrompt = '';
+        this.showUpdatePrompt = false;
+      }
+    }
+    
+  },
+  components: {
+    UpdateProfile,
+    ComicCollection
+  },
 }
 </script>
   
@@ -85,8 +117,35 @@ export default {
 }
 
 #profileIcon {
-    align-items: center;
+    width: 300px; 
+  height: 300px; 
+  border-radius: 100%; 
+  overflow: hidden;
     
+}
+.profile-icon img {
+  width: 300px; /* Adjust the width */
+  height: 250px; /* Adjust the height */
+}
+
+#ProfilePrompt {
+  font-size: 25px; 
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: rgba(255, 0, 0, 0.6);
+  color: black;
+  padding: 5px 23px;
+  margin-top: 3%;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
 }
 
 .welcome-box {
