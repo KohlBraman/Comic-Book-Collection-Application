@@ -13,7 +13,7 @@
 
                 <div class="icon-choice-box">
                     <div id="ProfileIcon" class="profile-icon">
-                        <p>{{ userName }}</p>
+                        <p class="comic-username">{{ userName }}</p>
                         <img src="../assets/superman.jpeg" alt="profile picture placeholder">
                     </div>
                     <div id="ProfilePrompt">
@@ -106,7 +106,12 @@ export default {
     
 
 }
-
+.comic-username {
+  font-size: 30px; 
+  font-weight: bold;
+  font-family: 'Comic Sans MS', cursive; 
+  color: #0c0c0c; 
+}
 
 .profile-container {
     display: flex;
