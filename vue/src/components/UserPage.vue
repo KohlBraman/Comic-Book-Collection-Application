@@ -45,11 +45,11 @@ export default {
     return {
 
       userName: "USERNAME",
-      selectedProfilePicture: "../assets/deadpool.jpeg", // Default profile picture
+      selectedProfilePicture: "/deadpool.jpeg", // Default profile picture
       profilePictures: [
-        "../assets/superman.jpeg",
-        "../assets/WonderWoman.jpeg",
-        "../assets/deadpool.jpeg",
+        "/superman.jpeg",
+        "/WonderWoman.jpeg",
+        "/deadpool.jpeg",
         
       ],
       showProfileDropdown: false,
