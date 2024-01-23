@@ -12,6 +12,14 @@
           <!-- Input fields for comic details -->
           <label for="title">Title:</label>
           <input v-model="comic.title" type="text" id="title" required>
+          <label for="cover-img">Cover Image:</label>
+          <input v-model="comic.coverImg" type="text" id="cover-img" required>
+          <label for="volume">Volume:</label>
+          <input v-model="comic.volume" type="number" id="volume" required>
+          <label for="issue-num">Issue Number:</label>
+          <input v-model="comic.issueNumber" type="number" id="issue-num" required>
+          <label for="cover-date">Cover Date:</label>
+          <input v-model="comic.coverDate" type="date" id="cover-date" required>
   
           <label for="author">Author:</label>
           <input v-model="comic.author" type="text" id="author" required>
@@ -24,7 +32,9 @@
     </div>
   </template>
   
+
   <script>
+  import comicService from '../services/ComicService';
   export default {
     data() {
       return {
@@ -41,8 +51,7 @@
           editor:'',
           inker:'',
           letterer:''
-          
-        }
+        },
       };
     },
     methods: {
@@ -50,15 +59,25 @@
         this.showForm = true;
       },
       addComic() {
-        // Perform any validation or additional logic here
-        // Once validated, emit an event or call a method to add the comic to the user's collection
-        this.$emit('add-comic', this.comic);
+        comicService.addComic(this.$store.state.user.id, this.comic)
+        .then(response => {
+          this.isLoading = false;
+          this.comic = response.data
+          console.log(this.comics); 
+          this.$router.push('/user');
+        })
+        .catch(error => {
+          console.log(error);
+        });
+        // // Perform any validation or additional logic here
+        // // Once validated, emit an event or call a method to add the comic to the user's collection
+        // this.$emit('add-comic', this.comic);
         
-        // Optionally, you can reset the form fields
-        this.comic = { title: '', author: '' };
+        // // Optionally, you can reset the form fields
+        // this.comic = { title: '', author: '' };
   
-        // Hide the form after adding the comic
-        this.showForm = false;
+        // // Hide the form after adding the comic
+        // this.showForm = false;
       }
     }
   };

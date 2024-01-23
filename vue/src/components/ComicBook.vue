@@ -24,6 +24,7 @@ export default {
       this.$store.dispatch('comics/fetchComicDetails', comicId)
         .then(comic => {
           this.comic = comic;
+          
         })
         .catch(error => {
           console.error('Error fetching comic details:', error);
