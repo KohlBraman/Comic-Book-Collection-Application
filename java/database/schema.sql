@@ -48,7 +48,7 @@ CREATE TABLE user_comic (
 );
 CREATE TABLE user_collections (
 	user_collection_id SERIAL,
-	collection_name varchar(100),
+	collection_name varchar(100) NOT NULL,
 	user_id int NOT NULL,
 
 	CONSTRAINT PK_user_collections PRIMARY KEY (user_collection_id),
