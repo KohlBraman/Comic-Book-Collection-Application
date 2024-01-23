@@ -76,8 +76,8 @@ public class JdbcComicDao implements ComicDao {
         return comicList;
     }
 
-    public Comic addComicByUserId(Comic comic, int user_id) {
-        Comic newComic = null;
+    public int addComicByUserId(Comic comic, int user_id) {
+        int newComicId;
         String sql = "INSERT INTO comics (comic_id, title, cover_img, volume, issue_number, cover_date) " +
                 "VALUES (DEFAULT, ?, ?, ?, ?, ?) RETURNING comic_id";
 
@@ -85,10 +85,8 @@ public class JdbcComicDao implements ComicDao {
 
 
         try {
-            Integer newComicId = jdbcTemplate.queryForObject(sql, Integer.class, comic.getTitle(), comic.getCoverImg(),
+            newComicId = jdbcTemplate.queryForObject(sql, Integer.class, comic.getTitle(), comic.getCoverImg(),
                     comic.getVolume(), comic.getIssueNumber(), comic.getCoverDate());
-
-            comic = getComicById(newComicId);
 
             jdbcTemplate.update(userComicSql, user_id, newComicId);
 
@@ -100,7 +98,7 @@ public class JdbcComicDao implements ComicDao {
             throw new DaoException("Unable to connect to server or database", e);
         }
 
-        return comic;
+        return newComicId;
     }
 
     //TODO add more methods to get by partial title, artists, user, collection, etc which return a List of comics.
