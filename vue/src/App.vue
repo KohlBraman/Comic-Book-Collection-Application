@@ -1,4 +1,6 @@
 <template>
+  <link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Mouse Memoirs">
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css?family=Marvel
 ">
@@ -25,7 +27,12 @@ export default {
 </script>
 
 <style>
-
+h1 {
+  font-family: 'Mouse Memoirs';
+  font-size: 40px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
 
 #capstone-app {
   /* You can also use background-image with a URL to add a background image */
