@@ -59,7 +59,7 @@ public class ComicController {
         if(loggedInUser == userId) {
             return comicDao.addComicByUserId(comic, userId);
         } else {
-            throw new ResponseStatusException(HttpStatus.METHOD_NOT_ALLOWED, "Invalid User Action");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid User Action");
         }
     }
 }
