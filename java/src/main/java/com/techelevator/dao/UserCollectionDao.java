@@ -14,7 +14,10 @@ public interface UserCollectionDao {
     List<UserCollection> getCollectionByTitle(QueryDto queryDto);
 
     UserCollection addCollectionByUserId(UserCollection userCollection, int user_id);
+<<<<<<< HEAD
 
     List<UserCollection> getCollectionsByUserId(int userId);
 //    UserCollection addComicToCollection(int collectionId, Comic comic, String collectionName);
+=======
+>>>>>>> 8f103ec45effec31494f69b2adb00a2d53266aea
 }

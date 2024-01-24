@@ -1,15 +1,17 @@
-<!-- ParentComponent.vue -->
-
 <template>
   <div>
     <div class="welcome-box">
       <h1>Welcome to your profile!</h1>
     </div>
 
+    <div class="comic-collection">
+      <ComicCollection />
+    </div>
+
     <div class="main-container">
       <div class="profile-container">
         <div class="content-box">
-          <p class="comic-username">{{ this.$store.state.user.username }}</p>
+          <p class="comic-username">{{ $store.state.user.username }}</p>
           <!-- Clickable Profile Icon -->
           <div class="icon-choice-box" @click="toggleProfileDropdown">
             <div id="ProfileIcon" class="profile-icon">
@@ -25,15 +27,17 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <ComicCollection />
+     
 
-      <div class="add-comic-box">
-    <AddComic @add-comic="handleAddComic" />
+        
       </div>
     </div>
 
+    <!-- AddComic component placement -->
+    <div class="add-comic-box">
+      <AddComic @add-comic="handleAddComic" />
+    </div>
     <CreateCollection />
   </div>
 </template>
@@ -46,28 +50,21 @@ import CreateCollection from './CreateCollection.vue';
 export default {
   data() {
     return {
-      userName: 'USERNAME',
-      selectedProfilePicture: '/deadpool.jpeg', // Default profile picture
-      profilePictures: ['/superman.jpeg', '/WonderWoman.jpeg', '/deadpool.jpeg'],
+      userName: "USERNAME",
+      selectedProfilePicture: "/deadpool.jpeg", // Default profile picture
+      profilePictures: ["/superman.jpeg", "/WonderWoman.jpeg", "/deadpool.jpeg"],
       showProfileDropdown: false,
-      showAddComicForm: false,
     };
   },
   methods: {
     toggleProfileDropdown() {
       this.showProfileDropdown = !this.showProfileDropdown;
     },
-    toggleAddComicForm() {
-      this.showAddComicForm = !this.showAddComicForm;
-    },
     handleAddComic(newComic) {
       // You can add logic here to update your comic collection with the new comic
       console.log('New Comic Added:', newComic);
       // For example, you might want to add it to an array in your data
       // this.comics.push(newComic);
-
-      // After handling the add comic action, hide the form
-      this.showAddComicForm = false;
     },
   },
   components: {
@@ -77,8 +74,6 @@ export default {
   },
 };
 </script>
-
-
 
 <style scoped>
 /* Updated styles to create a side-by-side layout */
@@ -98,12 +93,10 @@ export default {
   margin-right: 20px;
 }
 
-.comic-username {
-  font-size: 30px;
-  font-weight: bold;
-  font-family: 'Marvel';
-  text-transform: uppercase;
-  color: #0c0c0c;
+.add-comic-box {
+  display: flex;
+  justify-content: center;
+  margin-top: -200px;
 }
 
 .comic-collection {
@@ -112,17 +105,74 @@ export default {
   align-items: center;
   flex-wrap: wrap;
   max-width: 800px;
-  margin: 20px 0; /* Adjust the margin as needed */
+  margin: 0 auto;
 }
 
-.add-comic-box {
+.main-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 20px;
+  justify-content: flex-start;
+  margin-top: -300px;
 }
 
-.add-comic-box button {
-  margin-bottom: 10px;
+.comic-username {
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Marvel';
+  text-transform: uppercase;
+  color: #0c0c0c;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  background-position-x: center;
+  margin-bottom: 200px;
+  width: auto;
+  align-self: flex-start;
+  min-height: 400px;
+  background-image: url('../assets/BlueProfileBackground.jpeg');
+  background-size: cover;
+  margin-top: -100px;
+}
+
+.content-box {
+  display: flex;
+  flex-direction: column;
+  border: solid;
+  align-items: center;
+  width: auto;
+  align-self: flex-start;
+  min-height: 400px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+#ProfileIcon {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
+.profile-icon img {
+  width: 120px;
+}
+
+.welcome-box {
+  margin-bottom: 20px;
+}
+
+.icon-choice-box {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  position: absolute;
+  padding: 5px;
+}
+
+h1 {
+  text-align: center;
 }
 </style>

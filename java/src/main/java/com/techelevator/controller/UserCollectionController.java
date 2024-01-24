@@ -14,6 +14,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class UserCollectionController {
 
     private UserCollectionDao userCollectionDao;
@@ -82,5 +83,19 @@ public class UserCollectionController {
 //            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid User Action");
 //        }
 //    }
+
+    @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(path = "user/{user_id}/addCollection", method = RequestMethod.POST)
+    public UserCollection addCollectionByUserId (@RequestBody UserCollection userCollection, @PathVariable String user_id, Principal principal) {
+
+        int userId = Integer.parseInt(user_id);
+        int loggedInUser = userDao.getUserByUsername(principal.getName()).getId();
+        if(loggedInUser == userId) {
+            return userCollectionDao.addCollectionByUserId(userCollection, userId);
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid User Action");
+        }
+    }
 
 }

@@ -52,7 +52,7 @@ public class ComicController {
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/user/{user_id}/addComic", method = RequestMethod.POST)
-    public Comic addComicByUserId (@RequestBody Comic comic, @PathVariable String user_id, Principal principal) {
+    public int addComicByUserId (@RequestBody Comic comic, @PathVariable String user_id, Principal principal) {
 
         int userId = Integer.parseInt(user_id);
         int loggedInUser = userDao.getUserByUsername(principal.getName()).getId();

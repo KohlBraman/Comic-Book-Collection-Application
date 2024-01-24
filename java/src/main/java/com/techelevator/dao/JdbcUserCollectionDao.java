@@ -19,35 +19,35 @@ public class JdbcUserCollectionDao implements UserCollectionDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public  JdbcUserCollectionDao(JdbcTemplate jdbcTemplate) {
+    public JdbcUserCollectionDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public UserCollection getCollectionById(int collectionId){
+    public UserCollection getCollectionById(int collectionId) {
         UserCollection userCollection = null;
         String sql = "SELECT * FROM user_collections WHERE user_collection_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, collectionId);
-            if(results.next()) {
+            if (results.next()) {
                 userCollection = mapRowToUserCollection(results);
             }
-        } catch (CannotGetJdbcConnectionException e){
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database.", e);
         }
         return userCollection;
     }
 
-    public List<UserCollection> getCollectionByTitle (QueryDto queryDto){
+    public List<UserCollection> getCollectionByTitle(QueryDto queryDto) {
         List<UserCollection> collectionList = new ArrayList<>();
         String sql = "SELECT * FROM user_collections WHERE collection_name = ?";
 
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, queryDto.getCollectionTitle());
 
-            while(results.next()) {
+            while (results.next()) {
                 collectionList.add(mapRowToUserCollection(results));
             }
-        } catch (CannotGetJdbcConnectionException e){
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database.", e);
         }
         return collectionList;
@@ -114,6 +114,27 @@ public class JdbcUserCollectionDao implements UserCollectionDao {
 //            throw new DaoException("SQL syntax error", e);
 //        }
 //    }
+
+    public UserCollection addCollectionByUserId(UserCollection userCollection, int user_id) {
+        UserCollection newCollection = null;
+        String sql = "INSERT INTO user_collections (user_collection_id, collection_name, user_id) " +
+                "VALUES (DEFAULT, ?, ?) RETURNING user_collection_id";
+
+        try {
+            Integer newUserCollectionId = jdbcTemplate.queryForObject(sql, Integer.class,
+                    userCollection.getCollectionName(), user_id);
+
+            userCollection = getCollectionById(newUserCollectionId);
+
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("SQL syntax error", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return userCollection;
+    }
 
     private UserCollection mapRowToUserCollection(SqlRowSet rs) {
         UserCollection userCollection = new UserCollection();
