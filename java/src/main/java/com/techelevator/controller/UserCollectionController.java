@@ -35,19 +35,19 @@ public class UserCollectionController {
         List<UserCollection> collectionList = userCollectionDao.getCollectionByTitle(queryDto);
         return collectionList;
     }
-    @PreAuthorize("isAuthenticated()")
-    @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "user/{user_id}/addCollection", method = RequestMethod.POST)
-    public UserCollection addCollectionByUserId(@RequestBody UserCollection userCollection, @PathVariable String user_id, Principal principal) {
-
-        int userId = Integer.parseInt(user_id);
-        int loggedInUser = userDao.getUserByUsername(principal.getName()).getId();
-        if (loggedInUser == userId) {
-            return userCollectionDao.addCollectionByUserId(userCollection, userId);
-        } else {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid User Action");
-        }
-    }
+//    @PreAuthorize("isAuthenticated()")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @RequestMapping(path = "user/{user_id}/addCollection", method = RequestMethod.POST)
+//    public UserCollection addCollectionByUserId(@RequestBody UserCollection userCollection, @PathVariable String user_id, Principal principal) {
+//
+//        int userId = Integer.parseInt(user_id);
+//        int loggedInUser = userDao.getUserByUsername(principal.getName()).getId();
+//        if (loggedInUser == userId) {
+//            return userCollectionDao.addCollectionByUserId(userCollection, userId);
+//        } else {
+//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid User Action");
+//        }
+//    }
     @RequestMapping(path = "user/{user_id}/collections", method = RequestMethod.GET)
     public List<UserCollection> getCollectionByUserId(@PathVariable String user_id, Principal principal) {
         int userId = Integer.parseInt(user_id);

@@ -17,6 +17,8 @@ public interface ComicDao {
 
     int addComicByUserId(Comic comic, int user_id);
 
+    List<Comic> getComicsByUserId(int user_id);
+
 
     // Comic getComicsByUserId(int user_id);
 }

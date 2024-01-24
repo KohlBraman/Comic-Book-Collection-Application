@@ -52,26 +52,26 @@ public class JdbcUserCollectionDao implements UserCollectionDao {
         }
         return collectionList;
     }
-    public UserCollection addCollectionByUserId(UserCollection userCollection, int user_id) {
-        UserCollection newCollection = null;
-        String sql = "INSERT INTO user_collections (user_collection_id, collection_name, user_id) " +
-                "VALUES (DEFAULT, ?, ?) RETURNING user_collection_id";
-
-        try {
-            Integer newUserCollectionId = jdbcTemplate.queryForObject(sql, Integer.class,
-                    userCollection.getCollectionName(), user_id);
-
-            userCollection = getCollectionById(newUserCollectionId);
-
-        } catch (BadSqlGrammarException e) {
-            throw new DaoException("SQL syntax error", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-        }
-        return userCollection;
-    }
+//    public UserCollection addCollectionByUserId(UserCollection userCollection, int user_id) {
+//        UserCollection newCollection = null;
+//        String sql = "INSERT INTO user_collections (user_collection_id, collection_name, user_id) " +
+//                "VALUES (DEFAULT, ?, ?) RETURNING user_collection_id";
+//
+//        try {
+//            Integer newUserCollectionId = jdbcTemplate.queryForObject(sql, Integer.class,
+//                    userCollection.getCollectionName(), user_id);
+//
+//            userCollection = getCollectionById(newUserCollectionId);
+//
+//        } catch (BadSqlGrammarException e) {
+//            throw new DaoException("SQL syntax error", e);
+//        } catch (DataIntegrityViolationException e) {
+//            throw new DaoException("Data integrity violation", e);
+//        } catch (CannotGetJdbcConnectionException e) {
+//            throw new DaoException("Unable to connect to server or database", e);
+//        }
+//        return userCollection;
+//    }
 
     @Override
     public List<UserCollection> getCollectionsByUserId(int userId) {

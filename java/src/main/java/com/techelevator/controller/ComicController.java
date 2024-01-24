@@ -49,6 +49,24 @@ public class ComicController {
         return comicList;
     }
 
+    @RequestMapping(path = "/user/{user_id}/comics")
+    public List<Comic> getComicsByUserId(@PathVariable String user_id){
+        List<Comic> userComics = comicDao.getComicsByUserId(Integer.parseInt(user_id));
+        return userComics;
+    }
+
+    @RequestMapping(path = "/user/comics")
+    public List<Comic> getUserComics(Principal principal){
+        int currentUser = 0;
+        if(principal.getName() != null){
+            currentUser = userDao.getUserByUsername(principal.getName()).getId();
+            List<Comic> userComics = comicDao.getComicsByUserId(currentUser);
+            return userComics;
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Must be logged in.");
+        }
+    }
+
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/user/{user_id}/addComic", method = RequestMethod.POST)
