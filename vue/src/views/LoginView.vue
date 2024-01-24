@@ -139,7 +139,7 @@ button:hover {
 }
 .form-input-group {
   display: flex;
-  flex-direction: column; /* Stack items vertically */
+  flex-direction: column; 
   align-items: center;
   margin-bottom: 10px; /* Adjust as needed for spacing between form-input-groups */
 }
