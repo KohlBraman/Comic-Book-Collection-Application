@@ -15,7 +15,7 @@
         <label for="cover-img">Cover Image:</label>
         <input v-model="comic.coverImg" type="text" id="cover-img" required>
         <label for="volume">Volume:</label>
-        <input v-model="comic.volume" type="number" id="volume" required>
+        <input v-model="comic.volume" type="text" id="volume" required>
         <label for="issue-num">Issue Number:</label>
         <input v-model="comic.issueNumber" type="number" id="issue-num" required>
         <label for="cover-date">Cover Date:</label>
