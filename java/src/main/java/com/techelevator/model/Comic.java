@@ -7,7 +7,9 @@ public class Comic {
     private int comicId;
     private String title;
     private String coverImg;
+    private String synopsis;
     private String volume;
+
     private int issueNumber;
     private Date coverDate;
     private int writerId;
@@ -19,11 +21,12 @@ public class Comic {
 
 
     public Comic(){}
-    public Comic(int comicId, String title, String coverImg, String volume, int issueNumber, Date coverDate,
+    public Comic(int comicId, String title, String coverImg, String synopsis, String volume, int issueNumber, Date coverDate,
                  int writerId, int artistId, int coloristId, int editorId, int inkerId, int lettererId) {
         this.comicId = comicId;
         this.title = title;
         this.coverImg = coverImg;
+        this.synopsis = synopsis;
         this.volume = volume;
         this.issueNumber = issueNumber;
         this.coverDate = coverDate;
@@ -131,4 +134,11 @@ public class Comic {
         this.lettererId = lettererId;
     }
 
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    public void setSynopsis(String synopsis) {
+        this.synopsis = synopsis;
+    }
 }

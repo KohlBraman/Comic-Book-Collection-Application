@@ -29,7 +29,7 @@ public class JdbcComicDao implements ComicDao {
 
     public Comic getComicById(int comicId) {
         Comic comic = null;
-        String sql = "SELECT comic_id, title, cover_img, volume, issue_number, cover_date, " +
+        String sql = "SELECT comic_id, title, cover_img, synopsis, volume, issue_number, cover_date, " +
                 "writer_id, artist_id, colorist_id, editor_id, inker_id, letterer_id " +
                 "FROM comics WHERE comic_id = ?";
         try {
@@ -45,7 +45,7 @@ public class JdbcComicDao implements ComicDao {
 
     public Comic getComicByTitle(QueryDto queryDto) {
         Comic comic = null;
-        String sql = "SELECT comic_id, title, cover_img, volume, issue_number, cover_date, " +
+        String sql = "SELECT comic_id, title, cover_img, synopsis, volume, issue_number, cover_date, " +
                 "writer_id, artist_id, colorist_id, editor_id, inker_id, letterer_id " +
                 "FROM comics WHERE title = ?";
         try {
@@ -124,6 +124,7 @@ public class JdbcComicDao implements ComicDao {
         comic.setComicId(rs.getInt("comic_id"));
         comic.setTitle(rs.getString("title"));
         comic.setCoverImg(rs.getString("cover_img"));
+        comic.setSynopsis(rs.getString("synopsis"));
         comic.setVolume(rs.getString("volume"));
         comic.setIssueNumber(rs.getInt("issue_number"));
         comic.setCoverDate(rs.getDate("cover_date"));
