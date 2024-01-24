@@ -12,16 +12,12 @@
           </div>
           <p class="info-group-d">{{ currentComic.volume }}</p>
           <div>
+            <p class="title">Description</p>
+            <p class="info-group">{{ currentComic.synopsis }}</p>
+          </div>
+          <div>
             <p class="title">Published Date</p>
             <p class="info-group">{{ currentComic.coverDate }}</p>
-          </div>
-          <div>
-            <p class="title">Author </p>
-            <p class="info-group">{{ currentComic.writerId }}</p>
-          </div>
-          <div>
-            <p class="title">Artist</p>
-            <p class="info-group">{{ currentComic.artistId }}</p>
           </div>
         </div>
       </div>
