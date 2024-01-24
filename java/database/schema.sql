@@ -21,6 +21,7 @@ CREATE TABLE comics (
 	comic_id SERIAL,
 	title varchar(200) NOT NULL,
 	cover_img varchar(200),
+	synopsis varchar(500),
 	volume varchar(50) NOT NULL,
 	issue_number int NOT NULL,
 	cover_date DATE NOT NULL,
