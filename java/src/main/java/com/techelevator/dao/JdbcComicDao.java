@@ -101,6 +101,22 @@ public class JdbcComicDao implements ComicDao {
         return newComicId;
     }
 
+    public List<Comic> getComicsByUserId(int user_id) {
+        List<Comic> userComics = new ArrayList<>();
+        String sql = "SELECT * from comics c " +
+                "JOIN user_comic on user_comic.comic_id = c.comic_id " +
+                "AND user_id = ?";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, user_id);
+            while(results.next()) {
+                userComics.add(mapRowToComic(results));
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database.", e);
+        }
+        return userComics;
+    }
+
     //TODO add more methods to get by partial title, artists, user, collection, etc which return a List of comics.
 
     private Comic mapRowToComic(SqlRowSet rs) {
