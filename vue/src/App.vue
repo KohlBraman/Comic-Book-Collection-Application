@@ -1,9 +1,5 @@
 <template>
-  <link rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Mouse Memoirs">
-<link rel="stylesheet"
-  href="https://fonts.googleapis.com/css?family=Marvel
-">
+ 
   <div id="capstone-app">
     <div class="nave-bar">
       <nav-bar></nav-bar> 
@@ -56,5 +52,17 @@ h1 {
   z-index: -2; /* Set a lower z-index value than the other elements */
 
 }
+button {
+   background-color: rgb(199, 13, 13, .6);
+   color: black;
+   padding: 5px 23px;
+   margin-top: 3%;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 12px;
+   font-weight: bold;
+   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+ }
 
 </style>

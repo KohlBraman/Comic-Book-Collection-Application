@@ -1,7 +1,7 @@
-<template>
+<!-- <template>
   <div>
     <h2>Comic Book Details</h2>
-    <!-- Display basic information about a comic book -->
+    
   </div>
 </template>
 
@@ -13,14 +13,14 @@ export default {
     };
   },
   created() {
-    // Fetch comic data using an API call or other methods
+  
     const comicId = this.$route.params.id;
     
     this.fetchComicDetails(comicId);
   },
   methods: {
     fetchComicDetails(comicId) {
-      // Make an API call to fetch comic details
+    
       this.$store.dispatch('comics/fetchComicDetails', comicId)
         .then(comic => {
           this.comic = comic;
@@ -36,4 +36,4 @@ export default {
 
 <style scoped>
 
-</style>
+</style> -->

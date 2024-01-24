@@ -1,9 +1,7 @@
 <template>
   <v-footer class="footer-container">
     <div class="header">
-      <strong class="strong">Get connected with us on social networks!</strong>
-
-      <v-spacer></v-spacer>
+      <strong class="strong">Get connected with us on social networks!</strong>  
 
 
     </div>

@@ -37,7 +37,6 @@
 import PowBubble from "../components/PowBubble.vue";
 import ListService from "../services/ListService"
 export default {
-  // props: ['comics'],
   components: {
     PowBubble,
   },

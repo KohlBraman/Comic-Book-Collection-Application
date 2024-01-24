@@ -6,8 +6,7 @@ export function createStore(currentToken, currentUser) {
     state: {
       token: currentToken || '',
       user: currentUser || {},
-      comicCover: 'https://img.buzzfeed.com/buzzfeed-static/static/2022-03/30/23/asset/368eba18407b/sub-buzz-527-1648681980-17.jpg',
-      description:'The First Appearance of the Amazing Spider-Man! When young Peter Parker gains remarkable abilities from a radioactive spider, he must step up and try to become a hero — while also dealing with the fantastic pressures of an everyday teenager! For with great power, there must also come great responsibility!'
+    
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {

@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div>
         <form @submit.prevent="updateProfile">
             <label for="username">Username:</label>
@@ -6,14 +6,14 @@
 
             
 
-            <!-- <label for="bio">Bio:</label>
-            <textarea id="bio" v-model="profile.bio"></textarea> -->
+            <label for="bio">Bio:</label>
+            <textarea id="bio" v-model="profile.bio"></textarea>
 
             <button type="submit">Update Profile</button>
             <div>
             
             <p><strong>Username:</strong> {{ profile.username }}</p>
-            <!-- <p><strong>Bio:</strong> {{ profile.bio }}</p> -->
+            <p><strong>Bio:</strong> {{ profile.bio }}</p>
         </div>
         </form>
        
@@ -36,4 +36,4 @@ export default {
     }
 };
 
-</script>
+</script> -->

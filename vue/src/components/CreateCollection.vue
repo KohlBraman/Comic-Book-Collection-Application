@@ -1,30 +1,38 @@
 <template>
-    <div>
-      <h2>Create Collection</h2>
-      <form @submit.prevent="createCollection">
-        <label for="collection-name">Collection Name:</label>
-        <input v-model="collection.collectionName" type="text" id="collection-name" required>
-        <button type="submit">Create Collection</button>
-      </form>
-  
-      <!-- Display user's collections -->
-      <div v-if="userCollections.length > 0">
-        <h3>User Collections:</h3>
-        <ul>
-          <li v-for="(collection, index) in userCollections" :key="index">
-            {{ collection.collectionName }}
-            <!-- Add a form for adding comics to this collection -->
-            <form @submit.prevent="addComicToCollection(collection.userCollectionId)">
-              <label for="comic-title">Comic Title:</label>
-              <input v-model="newComics[collection.userCollectionId]" type="text" id="comic-title" required>
-              <!-- Add more fields as needed -->
-              <button type="submit">Add Comic</button>
-            </form>
-          </li>
-        </ul>
-      </div>
+  <div>
+    <h2>Create Collection</h2>
+    <form @submit.prevent="createCollection">
+      <label for="collection-name">Collection Name:</label>
+      <input v-model="collection.collectionName" type="text" id="collection-name" required>
+      <button type="submit">Create Collection</button>
+    </form>
+
+    <!-- Display user's collections -->
+    <div v-if="userCollections.length > 0">
+      <h3>User Collections:</h3>
+      <ul>
+        <li v-for="(collection, index) in userCollections" :key="index">
+          <!-- Display collection name -->
+          <p>{{ collection.collectionName }}</p>
+
+          <!-- Display thumbnail of the first comic and name -->
+          <div v-if="collection.comics.length > 0">
+            <img :src="collection.comics[0].coverImg" alt="First Comic Thumbnail" class="comic-thumbnail">
+            <p>{{ collection.comics[0].title }}</p>
+          </div>
+
+          <!-- Add a form for adding comics to this collection -->
+          <form @submit.prevent="addComicToCollection(collection.userCollectionId)">
+            <label for="comic-title">Comic Title:</label>
+            <input v-model="newComics[collection.userCollectionId]" type="text" id="comic-title" required>
+            <!-- Add more fields as needed -->
+            <button type="submit">Add Comic</button>
+          </form>
+        </li>
+      </ul>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import ComicService from '../services/ComicService';
@@ -92,3 +100,9 @@
   };
   </script>
   
+  <style scoped>
+  .comic-thumbnail {
+    max-width: 100px; /* Adjust the desired maximum width */
+    max-height: 150px; /* Adjust the desired maximum height */
+  }
+  </style>

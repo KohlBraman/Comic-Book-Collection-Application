@@ -14,9 +14,7 @@
       <li id="login" v-else>
         <router-link v-bind:to="{ name: 'login' }">Login</router-link>
       </li>
-      <!-- <li id="icon">
-        <img src="../assets/superman.jpeg" alt="Image Alt Text" class="icon-image">
-      </li> -->
+  
       
       
     </ul>
@@ -60,11 +58,6 @@ box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
   padding: 0px;
   flex-shrink: 1;
 }
-
-/* .nav-links li {
-  /* justify-content: flex-start; */
-  /* text-align: center; */
-  
 
 
 .nav-links a {

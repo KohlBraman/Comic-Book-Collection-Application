@@ -1,14 +1,11 @@
 <template>
-  <div>
+  <div class="user-page-container">
     <div class="welcome-box">
       <h1>Welcome to your profile!</h1>
     </div>
 
-    <div class="comic-collection">
-      <ComicCollection />
-    </div>
-
-    <div class="main-container">
+    <div class="flex-container">
+      <!-- Box 1 (20%) -->
       <div class="profile-container">
         <div class="content-box">
           <p class="comic-username">{{ $store.state.user.username }}</p>
@@ -27,20 +24,29 @@
             </div>
           </div>
         </div>
+      </div>
 
-     
-
-        
+      <!-- Box 2 (80%) -->
+      <div class="comic-collection">
+        <ComicCollection />
       </div>
     </div>
 
-    <!-- AddComic component placement -->
-    <div class="add-comic-box">
-      <AddComic @add-comic="handleAddComic" />
+    <div class="flex-container">
+      <!-- Box 3 (50%) -->
+      <div class="add-comic-box">
+        <AddComic @add-comic="handleAddComic" />
+      </div>
+
+      <!-- Box 4 (50%) -->
+      <div class="create-collection-box">
+        <CreateCollection />
+      </div>
     </div>
-    <CreateCollection />
   </div>
 </template>
+
+
 
 <script>
 import ComicCollection from '../components/ComicCollection.vue';
@@ -75,28 +81,42 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Updated styles to create a side-by-side layout */
-.main-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
 
-.profile-container {
+
+
+
+<style scoped>
+.user-page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 200px;
+}
+
+.main-content {
+  display: flex;
+  width: 80%;
+  margin-top: 20px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin-top: 20px;
+}
+
+.flex-box-20 {
+  width: 20%;
+}
+
+.flex-box-80 {
+  width: 80%;
+}
+
+.profile-container {
   height: 300px;
   background: url('../assets/BlueProfileBackground.jpeg') center/cover;
   margin-right: 20px;
-}
-
-.add-comic-box {
-  display: flex;
-  justify-content: center;
-  margin-top: -200px;
 }
 
 .comic-collection {
@@ -108,11 +128,9 @@ export default {
   margin: 0 auto;
 }
 
-.main-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-top: -300px;
+.add-comic-box,
+.create-collection-box {
+  margin-top: 20px;
 }
 
 .comic-username {
@@ -123,26 +141,12 @@ export default {
   color: #0c0c0c;
 }
 
-.profile-container {
-  display: flex;
-  flex-direction: column;
-  background-position-x: center;
-  margin-bottom: 200px;
-  width: auto;
-  align-self: flex-start;
-  min-height: 400px;
-  background-image: url('../assets/BlueProfileBackground.jpeg');
-  background-size: cover;
-  margin-top: -100px;
-}
-
 .content-box {
   display: flex;
   flex-direction: column;
   border: solid;
   align-items: center;
   width: auto;
-  align-self: flex-start;
   min-height: 400px;
   background-color: rgba(255, 255, 255, 0.7);
 }
@@ -158,10 +162,6 @@ export default {
   width: 120px;
 }
 
-.welcome-box {
-  margin-bottom: 20px;
-}
-
 .icon-choice-box {
   margin-bottom: 20px;
   cursor: pointer;
@@ -175,4 +175,12 @@ export default {
 h1 {
   text-align: center;
 }
+
+.welcome-box {
+  margin-bottom: 20px;
+}
+
+
+
+
 </style>
