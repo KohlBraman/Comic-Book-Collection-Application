@@ -20,7 +20,7 @@ public class UserCollectionController {
     private UserCollectionDao userCollectionDao;
     private UserDao userDao;
 
-    public UserCollectionController(UserCollectionDao userCollectionDao) {
+    public UserCollectionController(UserCollectionDao userCollectionDao, UserDao userDao) {
         this.userCollectionDao = userCollectionDao;
         this.userDao = userDao;
     }
@@ -36,7 +36,7 @@ public class UserCollectionController {
         return collectionList;
     }
 
-    //@PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "user/{user_id}/addCollection", method = RequestMethod.POST)
     public UserCollection addCollectionByUserId (@RequestBody UserCollection userCollection, @PathVariable String user_id, Principal principal) {
