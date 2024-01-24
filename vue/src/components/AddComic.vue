@@ -64,7 +64,7 @@ export default {
           this.isLoading = false;
           this.comic = response.data;
           console.log(this.comics);
-          this.$router.push('/user');
+          this.$router.go('/user');
         })
         .catch(error => {
           console.log(error);

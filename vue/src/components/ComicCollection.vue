@@ -1,6 +1,7 @@
 <template>
   <div class="comic-collection">
     <div class="comics-container">
+      <div v-if="comics.length != 0">
       <!-- Display all comics as thumbnails -->
       <div v-for="(comic, index) in comics" :key="index" class="comic-thumbnail">
         <div class="thumbnail-inner" @click="selectComic(index)" :class="{ 'selected': index === currentComicIndex }">
@@ -24,6 +25,10 @@
         </div>
       </div>
     </div>
+    <div v-if="comics.length == 0">
+      <h4>Add some comics to your account!</h4>
+    </div>
+  </div>
   </div>
 </template>
 
