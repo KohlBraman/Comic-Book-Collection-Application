@@ -45,11 +45,11 @@ export default {
     };
   },
   mounted() {
-    this.fetchComics();
+    this.fetchUserComics();
   },
   methods: {
-    fetchComics() {
-      ListService.getComics()
+    fetchUserComics() {
+      ListService.getUserComics()
         .then(response => {
           this.comics = response.data;
         })
