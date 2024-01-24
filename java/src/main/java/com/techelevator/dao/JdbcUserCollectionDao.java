@@ -90,30 +90,23 @@ public class JdbcUserCollectionDao implements UserCollectionDao {
         return collectionList;
     }
 
-//    @Override
-//    public UserCollection addComicToCollection(int collectionId, Comic comic, String collectionName) {
-//        try {
-//            String insertSql = "INSERT INTO comic_user_collection (comic_id, user_collection_id) " +
-//                    "SELECT ?, user_collection_id " +
-//                    "FROM user_collections " +
-//                    "WHERE collection_name = ? " +
-//                    "  AND EXISTS (SELECT 1 FROM comics WHERE comic_id = ?)";
-//
-//            jdbcTemplate.update(insertSql, comic.getComicId(), collectionName, comic.getComicId());
-//
-//            List<UserCollection> matchingCollections = getCollectionByTitle(new QueryDto(collectionName));
-//            if (!matchingCollections.isEmpty()) {
-//                return matchingCollections.get(0); // Assuming unique collection names
-//            } else {
-//                throw new DaoException("Collection not found: " + collectionName);
-//            }
-//        } catch (CannotGetJdbcConnectionException e) {
-//            // Handle exceptions as needed
-//            throw new DaoException("Unable to connect to the server or database.", e);
-//        } catch (BadSqlGrammarException e) {
-//            throw new DaoException("SQL syntax error", e);
-//        }
-//    }
+    @Override
+    public int addComicToCollection(int collectionId, Comic comic) {
+
+        int updatedRow = 0;
+        try {
+            String insertSql = "INSERT INTO comic_user_collection (comic_id, user_collection_id) VALUES (?, ?)";
+
+            jdbcTemplate.update(insertSql, comic.getComicId(), collectionId);
+
+        } catch (CannotGetJdbcConnectionException e) {
+            // Handle exceptions as needed
+            throw new DaoException("Unable to connect to the server or database.", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("SQL syntax error", e);
+        }
+        return updatedRow;
+    }
 
     public UserCollection addCollectionByUserId(UserCollection userCollection, int user_id) {
         UserCollection newCollection = null;
@@ -144,4 +137,5 @@ public class JdbcUserCollectionDao implements UserCollectionDao {
 
         return userCollection;
     }
+
 }

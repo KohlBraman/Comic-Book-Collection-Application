@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.ComicDao;
 import com.techelevator.dao.UserCollectionDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.Comic;
@@ -20,9 +21,13 @@ public class UserCollectionController {
     private UserCollectionDao userCollectionDao;
     private UserDao userDao;
 
-    public UserCollectionController(UserCollectionDao userCollectionDao, UserDao userDao) {
+    private ComicDao comicDao;
+
+
+    public UserCollectionController(UserCollectionDao userCollectionDao, UserDao userDao, ComicDao comicDao) {
         this.userCollectionDao = userCollectionDao;
         this.userDao = userDao;
+        this.comicDao = comicDao;
     }
     @RequestMapping(path = "/collections/{collectionId}", method = RequestMethod.GET)
     public UserCollection getUserCollectionById(@PathVariable int collectionId) {
@@ -60,29 +65,28 @@ public class UserCollectionController {
         }
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @RequestMapping(path = "/collections/{collectionId}/addComic/{collectionName}", method = RequestMethod.POST)
-//    public UserCollection addComicToCollection(
-//            @PathVariable int collectionId,
-//            @PathVariable String collectionName,
-//            @RequestBody Comic comic,
-//            Principal principal) {
-//
-//        // Authenticate user
-//        int loggedInUserId = userDao.getUserByUsername(principal.getName()).getId();
-//
-//        // Ensure the collection belongs to the logged-in user
-//        UserCollection userCollection = userCollectionDao.getCollectionById(collectionId);
-//
-//        if (userCollection != null && userCollection.getUserId() == loggedInUserId) {
-//            // Add the comic to the collection
-//            userCollectionDao.addComicToCollection(collectionId, comic, collectionName);
-//            return userCollectionDao.getCollectionById(collectionId);
-//        } else {
-//            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid User Action");
-//        }
-//    }
+    @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(path = "/collections/{collectionId}/addComic", method = RequestMethod.POST)
+    public UserCollection addComicToCollection(
+            @PathVariable int collectionId,
+            @RequestBody Comic comic,
+            Principal principal) {
+
+        // Authenticate user
+        int loggedInUserId = userDao.getUserByUsername(principal.getName()).getId();
+
+        // Ensure the collection belongs to the logged-in user
+        UserCollection userCollection = userCollectionDao.getCollectionById(collectionId);
+
+        if (userCollection != null && userCollection.getUserId() == loggedInUserId && validateComic(loggedInUserId, comic.getComicId())) {
+            // Add the comic to the collection
+            userCollectionDao.addComicToCollection(collectionId, comic);
+            return userCollectionDao.getCollectionById(collectionId);
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid User Action");
+        }
+    }
 
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
@@ -96,6 +100,20 @@ public class UserCollectionController {
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid User Action");
         }
+    }
+
+    private boolean validateComic(int userId, int comicId){
+        List<Comic> userComics = comicDao.getComicsByUserId(userId);
+        int[] comicIds = new int[userComics.size()];
+        for(int i = 0;i< userComics.size();i++){
+            comicIds[i] = userComics.get(i).getComicId();
+        }
+        for(int userComic : comicIds){
+            if(userComic == comicId){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
