@@ -33,35 +33,20 @@ export default {
   methods: {
     createCollection() {
     
-    // Create a new collection object with a predefined title
-    const newCollection = {
-      collectionName: 'Temporary Collection Title', 
-      
-    };
-
-    
-    const response = {
-      data: newCollection,
-    };
-
-    // Add the new collection to userCollections
-    this.userCollections.push(response.data);
-
-      
-      // const collectionData = JSON.parse(JSON.stringify(this.collection));
-      // ComicService.addCollection(this.$store.state.user.id, collectionData)
-      //   .then(response => {
-      //     console.log('Collection created:', response.data);
-      //     this.userCollections.push(response.data); // Add the new collection to userCollections
-      //     this.collection.collectionName = ''; // Clear the input field
-      //   })
-      //   .catch(error => {
-      //     console.error('Error creating collection:', error);
-      //   });
+      ComicService.addCollection(this.$store.state.user.id, this.collection)
+        .then(response => {
+          console.log('Collection created:', response.data);
+          this.userCollections.push(response.data); // Add the new collection to userCollections
+          this.collection.collectionName = ''; // Clear the input field
+        })
+        .catch(error => {
+          console.error('Error creating collection:', error);
+        });
+        this.$router.go('/user');
     },
 
     fetchUserCollections() {
-      ListService.getCollectionByUserId(this.$store.state.user.id)
+      ListService.getCollectionsByUserId(this.$store.state.user.id)
         .then(response => {
           this.userCollections = response.data;
           console.log('User collections:', this.userCollections);

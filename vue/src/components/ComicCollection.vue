@@ -14,37 +14,37 @@
   <p>Volume: {{ comics[currentComicIndex].volume }}</p>
   <p>Issue Number: {{ comics[currentComicIndex].issueNumber }}</p>
 </div>
-      <button v-if="!isDropdownOpen(currentComicIndex)" @click.stop="toggleDropdown(currentComicIndex)" class="add-to-collection-button">Add to Collection</button>
-      <div v-else @click.stop>
+      <button v-if="!isDropdownOpen(currentComicIndex)" @click.prevent="toggleDropdown(currentComicIndex)" class="add-to-collection-button">Add to Collection</button>
+      <div v-else>
         <select v-model="selectedCollection" class="collection-dropdown">
-          <option v-for="collection in collections" :key="collection.id" :value="collection.id">{{ collection.name }}</option>
+          <option v-for="collection in collections" :key="collection.userCollectionId" :value="collection.userCollectionId">{{ collection.collectionName }}</option>
         </select>
-        <button @click.stop="addToSelectedCollection(currentComicIndex)">Add to Selected Collection</button>
+        <button @click.prevent="addToSelectedCollection(selectedCollection)" type="submit">Add to Selected Collection</button>
       </div>
-      <button @click.stop="closeComicPopup">Close</button>
+      <button @click.prevent="closeComicPopup">Close</button>
     </div>
   </div>
 </template>
 
 <script>
 import ListService from '../services/ListService.js';
+import ComicService from '../services/ComicService';
 
 export default {
   data() {
     return {
       comics: [],
       currentComicIndex: null,
-      collections: [
-        { id: 1, name: 'Collection 1' },
-        { id: 2, name: 'Collection 2' },
-      ],
+      collections: [],
       selectedCollection: null,
       dropdownOpenIndex: null,
       howAddToCollectionButton: true,
+      throwAwayCollection: {},
     };
   },
   mounted() {
     this.fetchUserComics();
+    this.fetchUserCollections();
   },
   methods: {
     fetchUserComics() {
@@ -55,6 +55,16 @@ export default {
         .catch(error => {
           console.error(error);
         });
+    },
+
+    fetchUserCollections(){
+      ListService.getCollectionsByUserId(this.$store.state.user.id)
+      .then(response => {
+        this.collections = response.data;
+      })
+      .catch(error => {
+        console.log("Unable to retrieve user collections", error);
+      })
     },
     openComicPopup(index) {
       // Open the modal and set the currentComicIndex
@@ -83,12 +93,16 @@ export default {
       // Check if the dropdown menu is open for the specified comic
       return this.dropdownOpenIndex === index;
     },
-    addToSelectedCollection(index) {
-      // Implement logic to add the selected comic to the selected collection
-      // You can show a success message or perform any other action here
-      console.log(`Add comic to collection ${this.selectedCollection}`);
-      // Close the dropdown menu
-      this.closeComicPopup();
+    addToSelectedCollection(collectionId) {
+      ComicService.addComicToCollection(collectionId,  this.comics[this.currentComicIndex].comicId)
+      .then(response => {
+        this.throwAwayCollection = response.data;
+        this.closeComicPopup();
+        this.$router.push('/user');
+      })
+      .catch(error => {
+        console.log("Unable to add Comic to collection.", error);
+      })
     },
   },}
 </script>

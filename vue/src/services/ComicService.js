@@ -10,12 +10,13 @@ export default {
   },
   addCollection(user_id, collection) {
     return axios.post(`/user/${user_id}/addCollection`, collection, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
     });
   },
-  addComicToCollection(collectionId, comic) {
-    return axios.post(`collections/${collectionId}/addComic`, comic)
+  addComicToCollection(collectionId, selectedComicId) {
+    console.log("Hitting add to collection.")
+    return axios.post(`/collections/${collectionId}/addComic/${selectedComicId}`, selectedComicId)
   }
 }

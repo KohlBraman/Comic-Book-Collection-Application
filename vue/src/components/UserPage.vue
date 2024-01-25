@@ -66,6 +66,7 @@ import ComicCollection from '../components/ComicCollection.vue';
 import AddComic from '../components/AddComic.vue';
 import CreateCollection from '../components/CreateCollection.vue';
 import CollectionList from '../components/CollectionList.vue'; 
+import listService from '../services/ListService';
 export default {
   data() {
     return {
@@ -80,7 +81,19 @@ export default {
       newComics: {}, // Your existing data properties
     };
   },
+  mounted() {
+    this.fetchUserCollections();
+  },
   methods: {
+    fetchUserCollections(){
+      listService.getCollectionsByUserId(this.$store.state.user.id)
+      .then(response => {
+        this.userCollections = response.data;
+      })
+      .catch(error => {
+        console.log("Unable to get user collections.", error);
+      })
+    },
     toggleProfileDropdown() {
       this.showProfileDropdown = !this.showProfileDropdown;
     },

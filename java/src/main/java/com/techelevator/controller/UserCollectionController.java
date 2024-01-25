@@ -53,7 +53,7 @@ public class UserCollectionController {
 //            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid User Action");
 //        }
 //    }
-    @RequestMapping(path = "user/{user_id}/collections", method = RequestMethod.GET)
+    @RequestMapping(path = "/user/{user_id}/collections", method = RequestMethod.GET)
     public List<UserCollection> getCollectionByUserId(@PathVariable String user_id, Principal principal) {
         int userId = Integer.parseInt(user_id);
         int loggedInUser = userDao.getUserByUsername(principal.getName()).getId();
@@ -67,10 +67,10 @@ public class UserCollectionController {
 
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "/collections/{collectionId}/addComic", method = RequestMethod.POST)
+    @RequestMapping(path = "/collections/{collectionId}/addComic/{comicId}", method = RequestMethod.POST)
     public UserCollection addComicToCollection(
             @PathVariable int collectionId,
-            @RequestBody Comic comic,
+            @PathVariable int comicId,
             Principal principal) {
 
         // Authenticate user
@@ -79,9 +79,9 @@ public class UserCollectionController {
         // Ensure the collection belongs to the logged-in user
         UserCollection userCollection = userCollectionDao.getCollectionById(collectionId);
 
-        if (userCollection != null && userCollection.getUserId() == loggedInUserId && validateComic(loggedInUserId, comic.getComicId())) {
+        if (userCollection != null && userCollection.getUserId() == loggedInUserId && validateComic(loggedInUserId, comicId)) {
             // Add the comic to the collection
-            userCollectionDao.addComicToCollection(collectionId, comic);
+            userCollectionDao.addComicToCollection(collectionId, comicId);
             return userCollectionDao.getCollectionById(collectionId);
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid User Action");
@@ -90,7 +90,7 @@ public class UserCollectionController {
 
     @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "user/{user_id}/addCollection", method = RequestMethod.POST)
+    @RequestMapping(path = "/user/{user_id}/addCollection", method = RequestMethod.POST)
     public UserCollection addCollectionByUserId (@RequestBody UserCollection userCollection, @PathVariable String user_id, Principal principal) {
 
         int userId = Integer.parseInt(user_id);

@@ -18,6 +18,6 @@ public interface UserCollectionDao {
     List<UserCollection> getCollectionsByUserId(int userId);
 //    UserCollection addComicToCollection(int collectionId, Comic comic, String collectionName);
 
-    int addComicToCollection(int collection_id, Comic comic);
+    int addComicToCollection(int collection_id, int comicId);
 
 }

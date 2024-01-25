@@ -14,7 +14,7 @@ export default{
         return axios.get(`/user/${user_id}/comics`);
     },
 
-    getCollectionByUserId(user_id){
+    getCollectionsByUserId(user_id){
         return axios.get(`/user/${user_id}/collections`)
     },
 

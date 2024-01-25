@@ -91,13 +91,13 @@ public class JdbcUserCollectionDao implements UserCollectionDao {
     }
 
     @Override
-    public int addComicToCollection(int collectionId, Comic comic) {
+    public int addComicToCollection(int collectionId, int comicId) {
 
         int updatedRow = 0;
         try {
             String insertSql = "INSERT INTO comic_user_collection (comic_id, user_collection_id) VALUES (?, ?)";
 
-            jdbcTemplate.update(insertSql, comic.getComicId(), collectionId);
+            jdbcTemplate.update(insertSql, comicId, collectionId);
 
         } catch (CannotGetJdbcConnectionException e) {
             // Handle exceptions as needed
