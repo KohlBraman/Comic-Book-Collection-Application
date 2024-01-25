@@ -110,19 +110,6 @@ export default {
 
 
 
-.centered-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  padding: 5%;
-  margin-top: 10px; /* Adjusted margin to create spacing on top */
-  color: #39200a;
-  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
-  
-}
 
 @media (min-width: 768px) {
   .centered-container {
@@ -181,7 +168,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 40em;
   padding: 5%;
   margin-top: -30px;
   color: #39200a;

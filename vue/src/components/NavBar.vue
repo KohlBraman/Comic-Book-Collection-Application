@@ -65,7 +65,7 @@ box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
   text-decoration: none;
   text-transform: uppercase;
   font-size: 20px;
-  font-family: 'Super Comic';
+  font-family: 'acme';
   background-color: rgb(255, 255, 255);
   border: 2px solid;
   padding: 10px;
