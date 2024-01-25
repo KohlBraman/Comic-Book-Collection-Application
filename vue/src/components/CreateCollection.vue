@@ -1,108 +1,105 @@
 <template>
   <div>
-    <h2>Create Collection</h2>
+    <h2>Create A Collection</h2>
     <form @submit.prevent="createCollection">
-      <label for="collection-name">Collection Name:</label>
+      <label for="collection-name">Name:</label>
       <input v-model="collection.collectionName" type="text" id="collection-name" required>
-      <button type="submit">Create Collection</button>
+      <button class="center-button" type="submit">Create Collection</button>
     </form>
 
-    <!-- Display user's collections -->
-    <div v-if="userCollections.length > 0">
-      <h3>User Collections:</h3>
-      <ul>
-        <li v-for="(collection, index) in userCollections" :key="index">
-          <!-- Display collection name -->
-          <p>{{ collection.collectionName }}</p>
-
-          <!-- Display thumbnail of the first comic and name -->
-          <div v-if="collection.comics.length > 0">
-            <img :src="collection.comics[0].coverImg" alt="First Comic Thumbnail" class="comic-thumbnail">
-            <p>{{ collection.comics[0].title }}</p>
-          </div>
-
-          <!-- Add a form for adding comics to this collection -->
-          <form @submit.prevent="addComicToCollection(collection.userCollectionId)">
-            <label for="comic-title">Comic Title:</label>
-            <input v-model="newComics[collection.userCollectionId]" type="text" id="comic-title" required>
-            <!-- Add more fields as needed -->
-            <button type="submit">Add Comic</button>
-          </form>
-        </li>
-      </ul>
-    </div>
+  
+   
   </div>
 </template>
-  
-  <script>
-  import ComicService from '../services/ComicService';
-  import ListService from '../services/ListService';
-  
-  export default {
-    data() {
-      return {
-        collection: {
-          collectionName: ''
-        },
-        newComics: {}, // Use an object to store new comics for each collection
-        userCollections: []
-      };
-    },
-    methods: {
-      createCollection() {
-        const collectionData = JSON.parse(JSON.stringify(this.collection));
-  
-        ComicService.addCollection(this.$store.state.user.id, collectionData)
-          .then(response => {
-            console.log('Collection created:', response.data);
-            this.fetchUserCollections();
-            this.$router.push('/user');
-          })
-          .catch(error => {
-            console.error('Error creating collection:', error);
-          });
+
+<script>
+
+import ComicService from '../services/ComicService';
+import ListService from '../services/ListService';
+
+export default {
+  components: {
+   
+  },
+  data() {
+    return {
+      collection: {
+        collectionName: '',
       },
-  
-      fetchUserCollections() {
-        ListService.getCollectionByUserId(this.$store.state.user.id)
-          .then(response => {
-            this.userCollections = response.data;
-            console.log('User collections:', this.userCollections);
-          })
-          .catch(error => {
-            console.error('Error fetching user collections:', error);
-          });
-      },
-  
-      addComicToCollection(collectionId) {
-        const comicTitle = this.newComics[collectionId];
-        if (comicTitle) {
-          const comicData = { title: comicTitle }; // Adjust as needed
-  
-          ComicService.addComicToCollection(collectionId, comicData)
-            .then(response => {
-              console.log('Comic added to collection:', response.data);
-              // Optionally, update the userCollections after adding the comic
-              this.fetchUserCollections();
-            })
-            .catch(error => {
-              console.error('Error adding comic to collection:', error);
-            });
-  
-          // Clear the input after adding the comic
-          this.newComics[collectionId] = '';
-        }
-      },
+      newComics: {}, // Use an object to store new comics for each collection
+      userCollections: [],
+    };
+  },
+  methods: {
+    createCollection() {
+    
+    // Create a new collection object with a predefined title
+    const newCollection = {
+      collectionName: 'Temporary Collection Title', 
+      
+    };
+
+    
+    const response = {
+      data: newCollection,
+    };
+
+    // Add the new collection to userCollections
+    this.userCollections.push(response.data);
+
+      
+      // const collectionData = JSON.parse(JSON.stringify(this.collection));
+      // ComicService.addCollection(this.$store.state.user.id, collectionData)
+      //   .then(response => {
+      //     console.log('Collection created:', response.data);
+      //     this.userCollections.push(response.data); // Add the new collection to userCollections
+      //     this.collection.collectionName = ''; // Clear the input field
+      //   })
+      //   .catch(error => {
+      //     console.error('Error creating collection:', error);
+      //   });
     },
-    mounted() {
-      this.fetchUserCollections();
+
+    fetchUserCollections() {
+      ListService.getCollectionByUserId(this.$store.state.user.id)
+        .then(response => {
+          this.userCollections = response.data;
+          console.log('User collections:', this.userCollections);
+        })
+        .catch(error => {
+          console.error('Error fetching user collections:', error);
+        });
     },
-  };
-  </script>
+  },
+  mounted() {
+    this.fetchUserCollections();
+  },
+};
+</script>
   
   <style scoped>
+
   .comic-thumbnail {
     max-width: 100px; /* Adjust the desired maximum width */
     max-height: 150px; /* Adjust the desired maximum height */
   }
-  </style>
+  h2{
+  text-align: center;
+  font-family: "acme";
+  font-size: 16px;
+}
+  .center-button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px; /* Adjust the margin as needed */
+    margin-bottom: 10px;
+  } 
+  #collection-name {
+    width: 70%; /* Adjust the width as needed */
+    padding: 4px; /* Add padding for better appearance */
+  }
+   
+  
+</style>
+
+

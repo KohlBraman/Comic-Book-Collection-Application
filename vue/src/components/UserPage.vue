@@ -5,11 +5,14 @@
     </div>
 
     <div class="flex-container">
-      <!-- Box 1 (20%) -->
+      <!-- Box 1 (Profile Box) -->
+
       <div class="profile-container">
+
         <div class="content-box">
-          <p class="comic-username">{{ $store.state.user.username }}</p>
-          <!-- Clickable Profile Icon -->
+
+
+          <!-- Clickable Profile Icon --><h2 class="icon-head">Which mask do you wear?<br> Choose Below </h2>
           <div class="icon-choice-box" @click="toggleProfileDropdown">
             <div id="ProfileIcon" class="profile-icon">
               <img :src="selectedProfilePicture" alt="profile picture placeholder">
@@ -23,36 +26,46 @@
               </select>
             </div>
           </div>
+          
+          <section></section>
+          <!-- Username -->
+          <p class="comic-username">{{ $store.state.user.username }}</p>
+          <section></section>
+          <!-- About Me Input Box -->
+          <h2 class="about-you">A Little About You!</h2>
+          <textarea v-model="aboutMe" @input="handleAboutMeChange" @focus="handleAboutMeFocus" @blur="handleAboutMeBlur"
+            placeholder="Ex.Whats your favorite Super Hero? " class="about-me-input"
+            :class="{ 'focused': isAboutMeFocused }"
+            :style="{ backgroundColor: isAboutMeFocused ? '#fff' : 'rgba(255, 255, 255, 0.7)' }"></textarea>
+
+          <!-- Save Button for About Me -->
+          <button v-show="showSaveButton" @click="saveAboutMe">Save</button>
+          <section></section>
+          <!-- Add Comic Component -->
+          <h2 class="space-above-below"> Add a New Comic </h2>
+          <AddComic @add-comic="handleAddComic" />
+          <div class="space-above-below"></div>
+          <section></section>
+          <!-- Create Collection Component -->
+          <CreateCollection @create-collection="handleCreateCollection" />
         </div>
       </div>
 
-      <!-- Box 2 (80%) -->
+      <!-- Box 2 (Comic Collection) -->
       <div class="comic-collection">
         <ComicCollection />
+        <CollectionList :userCollections="userCollections" @add-comic="handleAddComic" />
       </div>
-    </div>
-
-    <div class="flex-container">
-      <!-- Box 3 (50%) -->
-      <div class="add-comic-box">
-        <AddComic @add-comic="handleAddComic" />
-      </div>
-
-      <!-- Box 4 (50%) -->
-      <div class="create-collection-box">
-        <CreateCollection />
-      </div>
+     
     </div>
   </div>
 </template>
 
-
-
 <script>
 import ComicCollection from '../components/ComicCollection.vue';
 import AddComic from '../components/AddComic.vue';
-import CreateCollection from './CreateCollection.vue';
-
+import CreateCollection from '../components/CreateCollection.vue';
+import CollectionList from '../components/CollectionList.vue'; 
 export default {
   data() {
     return {
@@ -60,74 +73,101 @@ export default {
       selectedProfilePicture: "/deadpool.jpeg", // Default profile picture
       profilePictures: ["/superman.jpeg", "/WonderWoman.jpeg", "/deadpool.jpeg"],
       showProfileDropdown: false,
+      aboutMe: "", // New data property for About Me input
+      showSaveButton: false, // New data property for Save button visibility
+      isAboutMeFocused: false, // New data property to track focus state
+      userCollections: [], // Your existing data properties
+      newComics: {}, // Your existing data properties
     };
   },
   methods: {
     toggleProfileDropdown() {
       this.showProfileDropdown = !this.showProfileDropdown;
     },
+    handleAboutMeChange() {
+      // Toggle the save button when the About Me content changes
+      this.showSaveButton = true;
+    },
+    handleAboutMeFocus() {
+      // Update the focus state when the input is focused
+      this.isAboutMeFocused = true;
+    },
+    handleAboutMeBlur() {
+      // Update the focus state when the input is blurred
+      this.isAboutMeFocused = false;
+    },
+    saveAboutMe() {
+      // Implement the logic to save About Me content
+      console.log('About Me content saved:', this.aboutMe);
+      this.showSaveButton = false; // Hide the save button after saving
+    },
     handleAddComic(newComic) {
-      // You can add logic here to update your comic collection with the new comic
-      console.log('New Comic Added:', newComic);
-      // For example, you might want to add it to an array in your data
-      // this.comics.push(newComic);
+      // Handle Add Comic logic
+      console.log('Add Comic:', newComic);
+    },
+    handleCreateCollection(newCollection) {
+      // Handle Create Collection logic
+      console.log('Create Collection:', newCollection);
+    },
+    handleAddComicToCollection({ collectionId, comicTitle }) {
+      // Update the newComics data in the parent component
+      this.$set(this.newComics, collectionId, comicTitle);
     },
   },
   components: {
     ComicCollection,
     AddComic,
     CreateCollection,
+    CollectionList,
   },
 };
 </script>
-
-
-
-
 
 <style scoped>
 .user-page-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
-.main-content {
-  display: flex;
+.about-me-input {
   width: 80%;
-  margin-top: 20px;
+  padding: 10px;
+  resize: vertical;
+  /* Allows vertical resizing for textarea */
+  transition: background-color 0.3s ease;
+  /* Add transition for smooth effect */
+  background-color: rgba(255, 0, 0, 0.5);
+  margin-bottom: 12px;
+}
+
+.about-me-input.focused {
+  background-color: #fff;
+  /* Solid white background when focused */
 }
 
 .flex-container {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  width: 80%;
   margin-top: 20px;
 }
 
-.flex-box-20 {
-  width: 20%;
-}
-
-.flex-box-80 {
-  width: 80%;
-}
-
 .profile-container {
-  height: 300px;
-  background: url('../assets/BlueProfileBackground.jpeg') center/cover;
-  margin-right: 20px;
-}
-
-.comic-collection {
   display: flex;
+  background: url('../assets/aBackround.jpeg');
+  margin-left: 5%;
+  flex-basis: 18%;
+  background-size: 100%;
   justify-content: center;
+  /* Center content horizontally */
   align-items: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-  margin: 0 auto;
-}
+  /* Center content vertically */
+  padding: 1%;
 
+}
+.space-above-below {
+  margin: 10px 0;
+}
 .add-comic-box,
 .create-collection-box {
   margin-top: 20px;
@@ -139,6 +179,8 @@ export default {
   font-family: 'Marvel';
   text-transform: uppercase;
   color: #0c0c0c;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .content-box {
@@ -146,20 +188,21 @@ export default {
   flex-direction: column;
   border: solid;
   align-items: center;
-  width: auto;
-  min-height: 400px;
-  background-color: rgba(255, 255, 255, 0.7);
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.88);
 }
 
-#ProfileIcon {
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
-  overflow: hidden;
+
+section {
+  border: 1px dashed #000;
+  /* 1px solid black border around the section */
+  width: 90%;
+  margin-top:5px ;
 }
 
 .profile-icon img {
-  width: 120px;
+  width: 100%;
+  margin-top: 15px;
 }
 
 .icon-choice-box {
@@ -175,12 +218,29 @@ export default {
 h1 {
   text-align: center;
 }
-
+h2{
+  text-align: center;
+  font-family: "acme";
+  font-size: 16px;
+}
+p{
+  text-align: center;
+  font-family: "acme";
+};
 .welcome-box {
   margin-bottom: 20px;
 }
 
-
-
-
+.comic-collection {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin: 0 auto;
+  flex-basis:80%;
+  flex-grow: 2;
+  width: 100%;
+  box-sizing: border-box; 
+}
 </style>

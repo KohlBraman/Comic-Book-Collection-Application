@@ -1,28 +1,27 @@
 <template>
   <div class="comic-collection">
     <div class="comics-container">
-      <!-- Display all comics as thumbnails -->
       <div v-for="(comic, index) in comics" :key="index" class="comic-thumbnail">
-        <div class="thumbnail-inner" @click="selectComic(index)" :class="{ 'selected': index === currentComicIndex }">
-          <div class="front" v-if="index !== currentComicIndex">
-            <img :src="comic.coverImg" :alt="comic.title" class="small-thumbnail">
-            <!-- Add button to add to collection -->
-            <button @click.stop="toggleDropdown(index)" class="add-to-collection-button">Add to Collection</button>
-            <!-- Dropdown menu -->
-            <div v-if="isDropdownOpen(index)" @click.stop>
-              <select v-model="selectedCollection" class="collection-dropdown">
-                <option v-for="collection in collections" :key="collection.id" :value="collection.id">{{ collection.name }}</option>
-              </select>
-              <button @click.stop="addToSelectedCollection(index)">Add to Selected Collection</button>
-            </div>
-          </div>
-          <div class="back" v-if="index === currentComicIndex">
-            <!-- Display additional info when the comic is selected -->
-            <p>{{ comic.title }}, {{ comic.volume }}, {{ comic.issueNumber }}</p>
-            <!-- Add other info as needed -->
-          </div>
+        <div @click="selectComic(index)" :class="{ 'selected': index === currentComicIndex }">
+          <img :src="comic.coverImg" :alt="comic.title" class="small-thumbnail">
         </div>
       </div>
+    </div>
+
+    <div v-if="currentComicIndex !== null" class="comic-popup">
+      <div class="comic-info">
+  <h2>{{ comics[currentComicIndex].title }}</h2>
+  <p>Volume: {{ comics[currentComicIndex].volume }}</p>
+  <p>Issue Number: {{ comics[currentComicIndex].issueNumber }}</p>
+</div>
+      <button v-if="!isDropdownOpen(currentComicIndex)" @click.stop="toggleDropdown(currentComicIndex)" class="add-to-collection-button">Add to Collection</button>
+      <div v-else @click.stop>
+        <select v-model="selectedCollection" class="collection-dropdown">
+          <option v-for="collection in collections" :key="collection.id" :value="collection.id">{{ collection.name }}</option>
+        </select>
+        <button @click.stop="addToSelectedCollection(currentComicIndex)">Add to Selected Collection</button>
+      </div>
+      <button @click.stop="closeComicPopup">Close</button>
     </div>
   </div>
 </template>
@@ -38,10 +37,10 @@ export default {
       collections: [
         { id: 1, name: 'Collection 1' },
         { id: 2, name: 'Collection 2' },
-        // Add more collections as needed
       ],
       selectedCollection: null,
       dropdownOpenIndex: null,
+      howAddToCollectionButton: true,
     };
   },
   mounted() {
@@ -57,6 +56,20 @@ export default {
           console.error(error);
         });
     },
+    openComicPopup(index) {
+      // Open the modal and set the currentComicIndex
+      this.currentComicIndex = index;
+    },
+    closeComicPopup() {
+      // Close the modal by resetting the currentComicIndex
+      this.currentComicIndex = null;
+    },
+    addToCollection(index) {
+      // Implement logic to add the selected comic to the selected collection
+      console.log(`Add comic to collection ${this.selectedCollection}`);
+      // Close the modal
+      this.closeComicPopup();
+    },
     selectComic(index) {
       // Toggle the selected comic index
       this.currentComicIndex = this.currentComicIndex === index ? null : index;
@@ -64,6 +77,7 @@ export default {
     toggleDropdown(index) {
       // Toggle the dropdown menu for the specified comic
       this.dropdownOpenIndex = this.dropdownOpenIndex === index ? null : index;
+      this.showAddToCollectionButton = false;
     },
     isDropdownOpen(index) {
       // Check if the dropdown menu is open for the specified comic
@@ -74,111 +88,122 @@ export default {
       // You can show a success message or perform any other action here
       console.log(`Add comic to collection ${this.selectedCollection}`);
       // Close the dropdown menu
-      this.dropdownOpenIndex = null;
+      this.closeComicPopup();
     },
-  },
-};
+  },}
 </script>
 
 <style scoped>
-
 .comic-collection {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   border: 1px solid black;
-  max-width: 800px;
-  margin: 0 auto; /* Center the entire component */
+  max-width: 200px;
 }
 
 .comics-container {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px; /* Add space between the comics */
+  margin-top: 20px;
+  /* Add space between the comics */
 }
 
 .comic-thumbnail {
   cursor: pointer;
   margin: 20px; /* Increase margin for better spacing */
-  perspective: 1000px; /* Perspective for the 3D effect */
 }
 
 .add-to-collection-button {
-  margin-top: 20px; /* Center the button and add space */
+  margin-top: 20px;
+
+
 }
 
 .collection-dropdown {
-  margin-top: 10px;
+margin-top: 10px;
 }
 
-.thumbnail-inner {
-  width: 150px;
-  height: 150px;
-  transform-style: preserve-3d;
-  transition: transform 0.5s;
-}
+.add-to-collection-button:hover .collection-dropdown {
+  display: block;
 
-.front,
-.back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden; /* Hide the backface of the elements */
 }
-
-.front {
-  /* Styles for the front face (small thumbnail) */
-}
-
-.back {
-  /* Styles for the back face (expanded info) */
-  transform: rotateY(180deg); /* Rotate 180 degrees initially (hidden) */
-}
-
 .small-thumbnail {
-  max-width: 100%; /* Adjust the desired maximum width */
-  max-height: 100%; /* Adjust the desired maximum height */
-  width: auto;
+  max-width: 100%;
+  /* Adjust the desired maximum width */
+  max-height: 100%;
+  /* Adjust the desired maximum height */
+  width: 120px;
   height: auto;
 }
 
 .selected .thumbnail-inner {
-  transform: rotateY(180deg); /* Rotate 180 degrees when selected */
+  transform: rotateY(180deg);
+  /* Rotate 180 degrees when selected */
 }
 
 .add-to-collection-button {
   margin-top: 10px;
 }
 
-.collection-dropdown {
-  margin-top: 10px;
+.comic-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 60px;
+  z-index: 1000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+.pop-out-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.89);
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 0; 
 }
 
-.add-to-collection-button {
-  margin-top: 10px;
+.pop-out-form label {
+  display: block;
+  margin-bottom: 5px;
 }
 
-.collection-dropdown {
-  margin-top: 10px;
+.pop-out-form input {
+  width: 92%;
+  padding: 8px;
+  margin-bottom: 10px;
 }
 
-
-.thumbnail-inner:not(.selected) .back {
-  display: none;
-}
-/* Add your styles here */
-.add-to-collection-button {
-  margin-top: 10px;
-}
-
-.collection-dropdown {
-  margin-top: 10px;
+.pop-out-form button {
+  width: 100%;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-/* Hide dropdown when not open */
-.thumbnail-inner:not(.selected) .back {
-  display: none;
+.pop-out-form button:hover {
+  background-color: #17a790;
+}
+.exit-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10px;
+  border: solid 1px black !important;
+  cursor: pointer;
+  width: 15px !important; /* Adjust the size as needed */
+  height: 15px !important; /* Adjust the size as needed */
 }
 
 </style>

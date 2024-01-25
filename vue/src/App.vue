@@ -53,16 +53,17 @@ h1 {
 
 }
 button {
-   background-color: rgb(199, 13, 13, .6);
+   background-color: rgb(199, 13, 13, .71);
    color: black;
    padding: 5px 23px;
    margin-top: 3%;
    border: none;
    border-radius: 5px;
    cursor: pointer;
-   font-size: 12px;
-   font-weight: bold;
+   font-size: 13px;
    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+   font-family: "acme";
+   text-transform:capitalize;
  }
 
 </style>
