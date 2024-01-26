@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div v-if="!hasComics && userComics.length === 0">
-      <p>Please add comics before using this form.</p>
-      <button @click="redirectToCreateComic">Add Comics</button>
-    </div>
+ 
     <!-- Button to toggle the AddComic form -->
     <button @click="toggleAddComicForm">{{ showForm ? 'Close Form' : 'Add Comic' }}</button>
 
@@ -58,7 +55,7 @@ export default {
         letterer: ''
       },
       hasComics: false,
-      userComics: [], // Initialize userComics array
+      userComics: [], 
     };
   },
   methods: {

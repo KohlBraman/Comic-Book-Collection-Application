@@ -59,6 +59,7 @@
      
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -79,6 +80,7 @@ export default {
       isAboutMeFocused: false, // New data property to track focus state
       userCollections: [], // Your existing data properties
       newComics: {}, // Your existing data properties
+     
     };
   },
   mounted() {
@@ -168,16 +170,25 @@ export default {
 .profile-container {
   display: flex;
   background: url('../assets/aBackround.jpeg');
-  margin-left: 5%;
+  margin-left: 70px;
   flex-basis: 18%;
   background-size: 100%;
   justify-content: center;
-  /* Center content horizontally */
   align-items: center;
-  /* Center content vertically */
   padding: 1%;
 
 }
+.content-box {
+  display: flex;
+  flex-direction: column;
+  border: solid;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.88);
+  flex-basis: 88%;
+}
+
+
 .space-above-below {
   margin: 10px 0;
 }
@@ -196,14 +207,7 @@ export default {
   margin-bottom: 10px;
 }
 
-.content-box {
-  display: flex;
-  flex-direction: column;
-  border: solid;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(255, 255, 255, 0.88);
-}
+
 
 
 section {
@@ -249,11 +253,18 @@ p{
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
   flex-basis:80%;
-  flex-grow: 2;
+  flex-grow: 1;
   width: 100%;
   box-sizing: border-box; 
 }
+@media (min-width: 768px) {
+  .profile-container {
+    /* max-width: 200px; */
+
+  }
+}
+
 </style>

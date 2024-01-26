@@ -66,6 +66,10 @@ export default {
 
 <style scoped>
 
+
+
+
+
 h1{
   margin-bottom: -3%;
   padding-bottom:5px ;
